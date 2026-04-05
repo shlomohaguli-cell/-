@@ -1,1 +1,378 @@
-index.html
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>קניון בני ברק הדיגיטלי - Kanyon Bnei Brak Digital</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&family=Assistant:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* הגדרות בסיסיות */
+        :root {
+            --bg-color: #F9F7F2; /* קרם מלכותי */
+            --primary-blue: #1A2A44; /* כחול נייבי עמוק */
+            --gold-matte: #C5A059; /* זהב מט מוברש */
+            --text-color: #333;
+            --font-serif: 'Frank Ruhl Libre', serif;
+            --font-sans: 'Assistant', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-serif);
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* הדר - לוגו וכותרת */
+        .main-header {
+            text-align: center;
+            padding: 40px 20px 20px;
+        }
+
+        .logo-text {
+            font-size: 3.5rem;
+            margin: 0;
+            letter-spacing: -1px;
+        }
+
+        .premium-banner {
+            border: 2px solid var(--gold-matte);
+            display: inline-block;
+            padding: 10px 30px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+
+        .premium-banner h2 {
+            font-size: 1.5rem;
+            margin: 0;
+            color: var(--primary-blue);
+        }
+
+        /* סרגל ניווט כחול */
+        .navbar {
+            background-color: var(--primary-blue);
+            padding: 15px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .navbar ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .navbar a {
+            color: var(--gold-matte);
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover, .navbar a.active {
+            color: #fff;
+        }
+
+        /* תוכן מרכזי - גריד החנויות */
+        .mall-container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        /* כרטיס חנות יוקרתי */
+        .shop-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .shop-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        /* מסגרת הזהב המוטבעת */
+        .shop-card::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 1px solid var(--gold-matte);
+            border-radius: 10px;
+            pointer-events: none;
+        }
+
+        .shop-image-wrapper {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #eee; /* צבע זמני */
+        }
+
+        .shop-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+
+        .shop-details {
+            padding: 25px;
+            text-align: center;
+            position: relative;
+            z-index: 1; /* מעל מסגרת הזהב */
+        }
+
+        .shop-title {
+            font-size: 1.8rem;
+            margin: 0 0 15px;
+        }
+
+        /* כפתור כניסה יוקרתי */
+        .entry-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gold-matte), #E6D09E);
+            color: var(--primary-blue);
+            font-family: var(--font-serif);
+            font-weight: bold;
+            font-size: 1.1rem;
+            padding: 12px 30px;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: box-shadow 0.3s ease, background 0.3s ease;
+        }
+
+        .entry-btn:hover {
+            background: linear-gradient(135deg, #E6D09E, var(--gold-matte));
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        /* סקציית "חדש בקניון" (כרטיסים מעגליים) */
+        .new-shops {
+            margin-top: 80px;
+            text-align: center;
+        }
+
+        .new-shops h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+        }
+
+        .circular-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            justify-items: center;
+        }
+
+        .circular-card {
+            text-align: center;
+            width: 180px;
+        }
+
+        .circular-image-wrapper {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            border: 3px solid var(--gold-matte);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin: 0 auto 15px;
+        }
+
+        .circular-image {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+
+        .circular-title {
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            color: var(--primary-blue);
+            margin: 0;
+            font-weight: bold;
+        }
+
+        /* פוטר - שומר שבת */
+        .main-footer {
+            background-color: var(--primary-blue);
+            color: #fff;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 80px;
+            font-family: var(--font-serif);
+        }
+
+        .shabbat-status {
+            color: var(--gold-matte);
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            margin: 0 0 10px;
+        }
+
+        /* מנגנון הסתרת אתר בשבת (CSS בסיסי לשם הדגמה) */
+        /* במוצאי שבת יש להוסיף את ה-class 'is-shabbat' ל-body */
+        body.is-shabbat .navbar,
+        body.is-shabbat .mall-container {
+            display: none;
+        }
+
+        body.is-shabbat::before {
+            content: 'שבת שלום! האתר סגור לרכישה. נשמח לשרת אתכם במוצאי שבת.';
+            display: block;
+            text-align: center;
+            padding: 50px;
+            background-color: #fff;
+            color: var(--primary-blue);
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            border-bottom: 5px solid var(--gold-matte);
+        }
+    </style>
+</head>
+<body class=""> <header class="main-header">
+        <h1 class="logo-text">קניון בני ברק הדיגיטלי</h1>
+        <p>Kanyon Bnei Brak Digital</p>
+        <div class="premium-banner">
+            <h2>קניון הפרימיום של בני ברק</h2>
+        </div>
+    </header>
+
+    <nav class="navbar">
+        <ul>
+            <li><a href="#" class="active">דף הבית</a></li>
+            <li><a href="#">ביגוד</a></li>
+            <li><a href="#">הבית והמתנה</a></li>
+            <li><a href="#">יודאיקה</a></li>
+            <li><a href="#">צור קשר</a></li>
+        </ul>
+    </nav>
+
+    <main class="mall-container">
+        
+        <div class="shop-grid">
+            
+            <div class="shop-card">
+                <div class="shop-image-wrapper">
+                    <img src="https://via.placeholder.com/350x250.png?text=Silver+Menorah" alt="מלכות הכסף" class="shop-image">
+                </div>
+                <div class="shop-details">
+                    <h3 class="shop-title">מלכות הכסף</h3>
+                    <button class="entry-btn">כניסה לחנות</button>
+                </div>
+            </div>
+
+            <div class="shop-card">
+                <div class="shop-image-wrapper">
+                    <img src="https://via.placeholder.com/350x250.png?text=Navy+Suit" alt="בגדי שבת" class="shop-image">
+                </div>
+                <div class="shop-details">
+                    <h3 class="shop-title">בגדי שבת</h3>
+                    <button class="entry-btn">כניסה לחנות</button>
+                </div>
+            </div>
+
+            <div class="shop-card">
+                <div class="shop-image-wrapper">
+                    <img src="https://via.placeholder.com/350x250.png?text=Siddur+and+Candlesticks" alt="מתנות יודאיקה" class="shop-image">
+                </div>
+                <div class="shop-details">
+                    <h3 class="shop-title">מתנות יודאיקה</h3>
+                    <button class="entry-btn">כניסה לחנות</button>
+                </div>
+            </div>
+
+        </div>
+
+        <section class="new-shops">
+            <h2>חדש בקניון</h2>
+            <div class="circular-grid">
+                
+                <div class="circular-card">
+                    <div class="circular-image-wrapper">
+                        <img src="https://via.placeholder.com/160.png?text=Kid's+Suit" alt="מלתחת הילד" class="circular-image">
+                    </div>
+                    <p class="circular-title">מלתחת הילד</p>
+                </div>
+
+                <div class="circular-card">
+                    <div class="circular-image-wrapper">
+                        <img src="https://via.placeholder.com/160.png?text=Diamond+Ring" alt="עולם התכשיטים" class="circular-image">
+                    </div>
+                    <p class="circular-title">עולם התכשיטים</p>
+                </div>
+                
+                <div class="circular-card">
+                    <div class="circular-image-wrapper">
+                        <img src="https://via.placeholder.com/160.png?text=Artwork" alt="אומנות הקיר" class="circular-image">
+                    </div>
+                    <p class="circular-title">אומנות הקיר</p>
+                </div>
+
+                <div class="circular-card">
+                    <div class="circular-image-wrapper">
+                        <img src="https://via.placeholder.com/160.png?text=Toys" alt="צעצועי איכות" class="circular-image">
+                    </div>
+                    <p class="circular-title">צעצועי איכות</p>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="main-footer">
+        <p class="shabbat-status">האתר פעיל - שומר שבת</p>
+        <h3 class="footer-logo">קניון בני ברק הדיגיטלי</h3>
+        <p>© 2026 כל הזכויות שמורות.</p>
+    </footer>
+
+</body>
+</html>
