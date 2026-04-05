@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>סל קניות — קניון בני ברק</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .cart-layout {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 2rem;
+      align-items: start;
+      padding: 2rem 0 3rem;
+    }
+    /* CART ITEMS */
+    .cart-items-list { display: flex; flex-direction: column; gap: 12px; }
+    .cart-item-row {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1rem 1.25rem;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .cart-item-emoji {
+      font-size: 36px; flex-shrink: 0;
+      width: 60px; height: 60px;
+      background: var(--cream2); border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .cart-item-info { flex: 1; }
+    .cart-item-name { font-size: 15px; font-weight: 600; color: var(--text); }
+    .cart-item-store { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+    .cart-item-price { font-size: 17px; font-weight: 700; color: var(--navy); font-family: 'Frank Ruhl Libre', serif; }
+    .qty-ctrl { display: flex; align-items: center; gap: 8px; }
+    .qty-btn {
+      width: 28px; height: 28px;
+      border: 1.5px solid var(--border-mid);
+      background: var(--cream);
+      border-radius: 50%; cursor: pointer;
+      font-size: 16px; font-weight: 700; line-height: 1;
+      color: var(--navy); display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s;
+    }
+    .qty-btn:hover { background: var(--gold-pale); border-color: var(--gold); }
+    .qty-num { font-size: 15px; font-weight: 600; min-width: 20px; text-align: center; }
+    .remove-btn {
+      background: none; border: none; cursor: pointer;
+      color: var(--text-muted); font-size: 18px; padding: 4px;
+      transition: color 0.15s;
+    }
+    .remove-btn:hover { color: #b91c1c; }
+
+    /* GROUP BY STORE */
+    .store-group { margin-bottom: 0.5rem; }
+    .store-group-header {
+      font-size: 12px; font-weight: 600; color: var(--text-muted);
+      padding: 0.5rem 0 0.3rem;
+      letter-spacing: 0.4px;
+      border-bottom: 1px dashed var(--border);
+      margin-bottom: 8px;
+      display: flex; align-items: center; gap: 6px;
+    }
+
+    /* ORDER SUMMARY */
+    .order-summary {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      position: sticky; top: 80px;
+    }
+    .order-summary h2 { font-size: 18px; margin-bottom: 1.25rem; color: var(--navy); }
+    .sum-row {
+      display: flex; justify-content: space-between;
+      padding: 7px 0; font-size: 14px;
+      border-bottom: 1px solid var(--cream2);
+    }
+    .sum-row:last-of-type { border-bottom: none; }
+    .sum-row .label { color: var(--text-muted); }
+    .sum-total {
+      display: flex; justify-content: space-between;
+      padding: 12px 0 0; font-size: 18px; font-weight: 700;
+      color: var(--navy); font-family: 'Frank Ruhl Libre', serif;
+    }
+
+    /* CHECKOUT FORM */
+    .checkout-section {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-top: 1.25rem;
+    }
+    .checkout-section h3 { font-size: 16px; margin-bottom: 1rem; color: var(--navy); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    /* PAYMENT METHODS */
+    .payment-options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 1rem; }
+    .payment-opt {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 12px;
+      border: 1.5px solid var(--cream3);
+      border-radius: var(--radius-md);
+      cursor: pointer; transition: border-color 0.15s;
+    }
+    .payment-opt:has(input:checked), .payment-opt.selected {
+      border-color: var(--gold); background: var(--gold-pale);
+    }
+    .payment-opt label { font-size: 14px; cursor: pointer; flex: 1; }
+    .payment-opt .pay-icon { font-size: 20px; }
+
+    /* EMPTY CART */
+    .empty-cart { text-align: center; padding: 4rem 2rem; }
+    .empty-cart .big-emoji { font-size: 64px; margin-bottom: 1rem; display: block; }
+    .empty-cart h2 { color: var(--navy); margin-bottom: 0.5rem; }
+    .empty-cart p { color: var(--text-muted); margin-bottom: 1.5rem; }
+
+    /* SUCCESS */
+    .order-success {
+      display: none; text-align: center; padding: 3rem 2rem;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius-xl); margin: 2rem 0;
+    }
+    .order-success.show { display: block; }
+    .success-icon { font-size: 64px; margin-bottom: 1rem; display: block; }
+    .order-success h2 { color: var(--navy); font-size: 26px; margin-bottom: 0.75rem; }
+    .order-success p { color: var(--text-muted); line-height: 1.8; }
+    .order-number { color: var(--gold); font-weight: 700; font-size: 18px; }
+
+    @media (max-width: 768px) {
+      .cart-layout { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .order-summary { position: static; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="shabbat-overlay">
+  <div class="shabbat-modal">
+    <div style="font-size:48px;margin-bottom:1rem">🕯️</div>
+    <h2>שבת שלום</h2>
+    <p>האתר סגור לרכישות בשבת.</p>
+    <button class="btn btn-gold" style="margin-top:1.5rem" onclick="document.getElementById('shabbat-overlay').classList.remove('show')">המשך גלישה</button>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">🏪</div>
+      <div>
+        <div class="logo-name">קניון בני ברק</div>
+        <div class="logo-sub">המרכז המסחרי הדיגיטלי</div>
+      </div>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html">דף הבית</a>
+      <a href="index.html">חנויות</a>
+      <a href="cart.html" class="active">סל קניות</a>
+      <a href="admin.html">ניהול חנות</a>
+    </nav>
+    <div class="header-actions">
+      <a href="cart.html" class="btn-cart">🛒 סל <span class="cart-badge">0</span></a>
+    </div>
+  </div>
+</header>
+
+<div class="shabbat-bar" id="shabbat-bar">
+  <div class="shabbat-dot" id="shabbat-dot" style="background:#4ade80"></div>
+  <span id="shabbat-msg">האתר פעיל</span>
+  <span class="shabbat-time" id="shabbat-time"></span>
+</div>
+
+<main>
+  <div class="container">
+    <h1 style="padding:1.5rem 0 0.25rem; font-size:26px">🛒 סל הקניות שלך</h1>
+    <p style="color:var(--text-muted); font-size:14px; margin-bottom:0">
+      קנה ממספר חנויות — תשלום אחד, תיאום משלוח אחד
+    </p>
+
+    <!-- SUCCESS STATE -->
+    <div class="order-success" id="order-success">
+      <span class="success-icon">✅</span>
+      <h2>ההזמנה התקבלה!</h2>
+      <p>
+        מספר הזמנה: <span class="order-number" id="order-num"></span><br>
+        שלחנו אישור לאימייל שלך.<br>
+        בעלי החנויות קיבלו התראה ויכינו את ההזמנות שלך.<br>
+        <strong>זמן אספקה משוער: 24–48 שעות</strong>
+      </p>
+      <a href="index.html" class="btn btn-gold btn-lg" style="margin-top:1.5rem;display:inline-flex">
+        חזרה לקניון ←
+      </a>
+    </div>
+
+    <!-- CART CONTENT -->
+    <div id="cart-content">
+      <!-- filled by JS -->
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:0.5rem">
+        <div class="logo-icon">🏪</div>
+        <div class="logo-name" style="color:#fff">קניון בני ברק</div>
+      </div>
+      <p>האתר נסגר בשבת ומועדים · כל התכנים מאושרים</p>
+    </div>
+    <div class="footer-col">
+      <h4>ניווט</h4>
+      <ul>
+        <li><a href="index.html">דף הבית</a></li>
+        <li><a href="admin.html">ניהול חנות</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>עזרה</h4>
+      <ul>
+        <li><a href="#">מדיניות משלוחים</a></li>
+        <li><a href="#">ביטול הזמנה</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2025 קניון בני ברק הדיגיטלי</div>
+</footer>
+
+<div id="toast"></div>
+
+<script src="js/mall.js"></script>
+<script>
+  function groupByStore(cart) {
+    const groups = {};
+    cart.forEach(item => {
+      if (!groups[item.storeName]) groups[item.storeName] = [];
+      groups[item.storeName].push(item);
+    });
+    return groups;
+  }
+
+  function renderCart() {
+    const cart = getCart();
+    const content = document.getElementById('cart-content');
+
+    if (!cart.length) {
+      content.innerHTML = `
+        <div class="empty-cart">
+          <span class="big-emoji">🛒</span>
+          <h2>הסל שלך ריק</h2>
+          <p>עוד לא הוספת מוצרים לסל. גלה את חנויות הקניון!</p>
+          <a href="index.html" class="btn btn-gold btn-lg">לקניון ←</a>
+        </div>`;
+      return;
+    }
+
+    const groups = groupByStore(cart);
+    const shipping = 25;
+    const total = cartTotal();
+    const grandTotal = total + shipping;
+
+    const itemsHTML = Object.entries(groups).map(([storeName, items]) => `
+      <div class="store-group">
+        <div class="store-group-header">🏪 ${storeName}</div>
+        ${items.map(item => `
+          <div class="cart-item-row">
+            <div class="cart-item-emoji">${item.emoji}</div>
+            <div class="cart-item-info">
+              <div class="cart-item-name">${item.productName}</div>
+              <div class="cart-item-store">${item.storeName}</div>
+            </div>
+            <div class="cart-item-price">₪${(item.price * item.qty).toLocaleString('he-IL')}</div>
+            <div class="qty-ctrl">
+              <button class="qty-btn" onclick="updateQty(${item.productId}, -1); renderCart()">−</button>
+              <span class="qty-num">${item.qty}</span>
+              <button class="qty-btn" onclick="updateQty(${item.productId}, 1); renderCart()">+</button>
+            </div>
+            <button class="remove-btn" onclick="removeFromCart(${item.productId}); renderCart()" title="הסר מהסל">✕</button>
+          </div>
+        `).join('')}
+      </div>`).join('');
+
+    content.innerHTML = `
+      <div class="cart-layout">
+        <div>
+          <div class="cart-items-list">${itemsHTML}</div>
+        </div>
+        <div>
+          <div class="order-summary">
+            <h2>סיכום הזמנה</h2>
+            <div class="sum-row"><span class="label">מוצרים (${cart.reduce((s,i)=>s+i.qty,0)})</span><span>₪${total.toLocaleString('he-IL')}</span></div>
+            <div class="sum-row"><span class="label">משלוח מקומי</span><span>₪${shipping}</span></div>
+            <div class="sum-row"><span class="label">הנחה</span><span style="color:#2d6a4f">₪0</span></div>
+            <div class="sum-total"><span>סה"כ לתשלום</span><span>₪${grandTotal.toLocaleString('he-IL')}</span></div>
+          </div>
+
+          <div class="checkout-section">
+            <h3>פרטי משלוח</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">שם פרטי</label>
+                <input class="form-input" type="text" placeholder="ישראל" id="fname">
+              </div>
+              <div class="form-group">
+                <label class="form-label">שם משפחה</label>
+                <input class="form-input" type="text" placeholder="ישראלי" id="lname">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">כתובת בבני ברק</label>
+              <input class="form-input" type="text" placeholder="רחוב, מספר בית, דירה" id="address">
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">טלפון</label>
+                <input class="form-input" type="tel" placeholder="050-0000000" id="phone">
+              </div>
+              <div class="form-group">
+                <label class="form-label">אימייל</label>
+                <input class="form-input" type="email" placeholder="israel@mail.com" id="email">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">הערות</label>
+              <textarea class="form-textarea" placeholder="הנחיות מיוחדות לשליח..." id="notes" rows="2"></textarea>
+            </div>
+          </div>
+
+          <div class="checkout-section">
+            <h3>אמצעי תשלום</h3>
+            <div class="payment-options">
+              <div class="payment-opt selected" onclick="selectPayment(this)">
+                <input type="radio" name="pay" checked> <span class="pay-icon">💳</span>
+                <label>כרטיס אשראי (Cardcom)</label>
+              </div>
+              <div class="payment-opt" onclick="selectPayment(this)">
+                <input type="radio" name="pay"> <span class="pay-icon">📱</span>
+                <label>PayMe</label>
+              </div>
+              <div class="payment-opt" onclick="selectPayment(this)">
+                <input type="radio" name="pay"> <span class="pay-icon">🏦</span>
+                <label>העברה בנקאית</label>
+              </div>
+            </div>
+            <button class="btn btn-gold btn-checkout" style="width:100%;font-size:16px;padding:13px" onclick="placeOrder()">
+              ✅ אישור הזמנה — ₪${grandTotal.toLocaleString('he-IL')}
+            </button>
+            <p style="font-size:11px;color:var(--text-muted);text-align:center;margin-top:8px">
+              🔒 תשלום מאובטח · ניתן לביטול תוך 24 שעות
+            </p>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  function selectPayment(el) {
+    document.querySelectorAll('.payment-opt').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    el.querySelector('input').checked = true;
+  }
+
+  function placeOrder() {
+    if (isShabbatNow()) { showToast('האתר סגור בשבת 🕯️'); return; }
+    const fname = document.getElementById('fname')?.value;
+    const address = document.getElementById('address')?.value;
+    if (!fname || !address) { showToast('נא למלא את פרטי המשלוח'); return; }
+
+    const orderNum = 'BB-' + Date.now().toString().slice(-6);
+    document.getElementById('order-num').textContent = orderNum;
+
+    // Clear cart
+    saveCart([]);
+
+    // Show success
+    document.getElementById('cart-content').style.display = 'none';
+    document.getElementById('order-success').classList.add('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  document.addEventListener('DOMContentLoaded', renderCart);
+</script>
+</body>
+</html>

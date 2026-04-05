@@ -1,0 +1,299 @@
+/* ===== קניון בני ברק הדיגיטלי — עיצוב משותף ===== */
+@import url('https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Assistant:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --navy:       #1a2744;
+  --navy-light: #243259;
+  --gold:       #b8922a;
+  --gold-light: #d4a84b;
+  --gold-pale:  #f0e6cc;
+  --cream:      #f8f5ef;
+  --cream2:     #f0ebe0;
+  --cream3:     #e8e0d0;
+  --white:      #ffffff;
+  --text:       #1a2744;
+  --text-mid:   #4a4535;
+  --text-muted: #6b6555;
+  --border:     rgba(184,146,42,0.22);
+  --border-mid: rgba(184,146,42,0.4);
+  --shadow-sm:  0 2px 8px rgba(26,39,68,0.08);
+  --shadow-md:  0 4px 20px rgba(26,39,68,0.12);
+  --shadow-lg:  0 8px 40px rgba(26,39,68,0.15);
+  --radius-sm:  6px;
+  --radius-md:  10px;
+  --radius-lg:  14px;
+  --radius-xl:  20px;
+  --transition: 0.2s ease;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Assistant', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  direction: rtl;
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* ===== TYPOGRAPHY ===== */
+h1, h2, h3, h4 { font-family: 'Frank Ruhl Libre', serif; line-height: 1.2; }
+h1 { font-size: clamp(28px, 5vw, 48px); font-weight: 700; }
+h2 { font-size: clamp(20px, 3vw, 28px); font-weight: 600; }
+h3 { font-size: 18px; font-weight: 600; }
+p { font-size: 15px; }
+
+a { text-decoration: none; color: inherit; }
+
+/* ===== LAYOUT ===== */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+.section { padding: 2.5rem 0; }
+.section-title {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: 22px;
+  color: var(--navy);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to left, transparent, var(--border-mid));
+}
+
+/* ===== HEADER ===== */
+.site-header {
+  background: var(--navy);
+  border-bottom: 2px solid var(--gold);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-md);
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.7rem 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.logo { display: flex; align-items: center; gap: 10px; }
+.logo-icon {
+  width: 40px; height: 40px;
+  background: var(--gold);
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.logo-name {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: 18px; font-weight: 700;
+  color: #fff; line-height: 1.1;
+}
+.logo-sub { font-size: 11px; color: var(--gold-light); letter-spacing: 0.4px; }
+
+.main-nav { display: flex; gap: 1.5rem; }
+.main-nav a {
+  color: rgba(255,255,255,0.75);
+  font-size: 14px;
+  transition: color var(--transition);
+  padding: 4px 0;
+  border-bottom: 2px solid transparent;
+}
+.main-nav a:hover, .main-nav a.active {
+  color: var(--gold-light);
+  border-bottom-color: var(--gold);
+}
+
+.header-actions { display: flex; align-items: center; gap: 10px; }
+.btn-cart {
+  background: var(--gold);
+  color: var(--navy);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 7px 14px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Assistant', sans-serif;
+  display: flex; align-items: center; gap: 6px;
+  transition: background var(--transition);
+}
+.btn-cart:hover { background: var(--gold-light); }
+.cart-badge {
+  background: var(--navy);
+  color: var(--gold-light);
+  border-radius: 10px;
+  padding: 1px 6px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* ===== SHABBAT BANNER ===== */
+.shabbat-bar {
+  background: linear-gradient(135deg, #0f1a30 0%, #1a2744 100%);
+  border-bottom: 1px solid rgba(184,146,42,0.3);
+  padding: 5px 1.5rem;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  font-size: 12px;
+}
+.shabbat-bar.closed { background: #6b1a1a; border-bottom-color: rgba(255,100,100,0.3); }
+.shabbat-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #4ade80;
+  flex-shrink: 0;
+}
+.shabbat-dot.red { background: #f87171; }
+.shabbat-msg { color: rgba(255,255,255,0.8); }
+.shabbat-time { color: var(--gold-light); font-weight: 600; }
+
+/* ===== BUTTONS ===== */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 9px 20px;
+  border-radius: var(--radius-md);
+  font-family: 'Assistant', sans-serif;
+  font-size: 14px; font-weight: 600;
+  cursor: pointer; border: none;
+  transition: all var(--transition);
+}
+.btn-primary { background: var(--navy); color: #fff; }
+.btn-primary:hover { background: var(--navy-light); }
+.btn-gold { background: var(--gold); color: var(--navy); }
+.btn-gold:hover { background: var(--gold-light); }
+.btn-outline {
+  background: transparent;
+  color: var(--navy);
+  border: 1.5px solid var(--border-mid);
+}
+.btn-outline:hover { background: var(--cream2); border-color: var(--gold); }
+.btn-sm { padding: 5px 12px; font-size: 12px; }
+.btn-lg { padding: 12px 28px; font-size: 16px; }
+
+/* ===== CARDS ===== */
+.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+.card:hover {
+  border-color: var(--gold);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ===== FOOTER ===== */
+.site-footer {
+  background: var(--navy);
+  border-top: 2px solid var(--gold);
+  padding: 2rem 1.5rem;
+  margin-top: 3rem;
+  color: rgba(255,255,255,0.7);
+}
+.footer-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 2fr 1fr 1fr;
+  gap: 2rem;
+}
+.footer-brand .logo-name { font-size: 20px; }
+.footer-brand p { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 0.5rem; line-height: 1.7; }
+.footer-col h4 { color: var(--gold-light); font-size: 13px; font-weight: 600; margin-bottom: 0.75rem; letter-spacing: 0.5px; }
+.footer-col ul { list-style: none; }
+.footer-col li { margin-bottom: 0.4rem; }
+.footer-col a { font-size: 13px; color: rgba(255,255,255,0.55); transition: color var(--transition); }
+.footer-col a:hover { color: var(--gold-light); }
+.footer-bottom {
+  max-width: 1100px; margin: 1.5rem auto 0;
+  padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.08);
+  text-align: center; font-size: 12px; color: rgba(255,255,255,0.35);
+}
+
+/* ===== OVERLAY SHABBAT ===== */
+#shabbat-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(10, 15, 30, 0.92);
+  z-index: 9999;
+  align-items: center; justify-content: center;
+  text-align: center;
+}
+#shabbat-overlay.show { display: flex; }
+.shabbat-modal {
+  background: var(--navy);
+  border: 2px solid var(--gold);
+  border-radius: var(--radius-xl);
+  padding: 2.5rem 3rem;
+  max-width: 420px;
+  width: 90%;
+}
+.shabbat-modal h2 { color: var(--gold-light); font-size: 26px; margin-bottom: 0.75rem; }
+.shabbat-modal p { color: rgba(255,255,255,0.7); font-size: 14px; line-height: 1.8; }
+.shabbat-modal .end-time { color: var(--gold-light); font-size: 18px; font-weight: 700; margin-top: 1rem; display: block; }
+
+/* ===== FORMS ===== */
+.form-group { margin-bottom: 1.1rem; }
+.form-label { font-size: 13px; font-weight: 600; color: var(--text-mid); margin-bottom: 4px; display: block; }
+.form-input, .form-select, .form-textarea {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1.5px solid var(--cream3);
+  border-radius: var(--radius-sm);
+  font-family: 'Assistant', sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  background: var(--white);
+  transition: border-color var(--transition);
+  outline: none;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: var(--gold);
+}
+.form-textarea { resize: vertical; min-height: 90px; }
+
+/* ===== BADGE ===== */
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.badge-gold { background: var(--gold-pale); color: var(--gold); border: 1px solid var(--border-mid); }
+.badge-green { background: #e6f4ea; color: #2d6a4f; }
+.badge-red { background: #fdecea; color: #b91c1c; }
+
+/* ===== TOAST ===== */
+#toast {
+  position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(20px);
+  background: var(--navy);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--gold);
+  font-size: 13px;
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 9000;
+  pointer-events: none;
+  white-space: nowrap;
+}
+#toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+  .main-nav { display: none; }
+  .footer-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+  .container { padding: 0 1rem; }
+}
