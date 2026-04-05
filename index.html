@@ -3,395 +3,1127 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="קניון בני ברק הדיגיטלי — כל חנויות רחוב רבי עקיבא וחזון איש במקום אחד">
+  
+  <meta name="description" content="קניון בני ברק הדיגיטלי — מיטב חנויות רחוב רבי עקיבא וחזון איש">
   <title>קניון בני ברק הדיגיטלי</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
-    /* ===== HOME-SPECIFIC ===== */
-    .hero {
-      background: var(--navy);
-      padding: 3.5rem 1.5rem 3rem;
-      position: relative; overflow: hidden;
+    /* ══════════════════════════════════════════
+       CSS VARIABLES — פלטת יוקרה
+    ══════════════════════════════════════════ */
+    :root {
+      --cream:        #fdfcf0;
+      --cream2:       #f5f2e0;
+      --cream3:       #ede8d0;
+      --royal:        #1a237e;
+      --royal-mid:    #283593;
+      --royal-light:  #3949ab;
+      --gold:         #b8860b;
+      --gold-light:   #d4a017;
+      --gold-pale:    #fef3d0;
+      --gold-border:  rgba(184,134,11,0.3);
+      --text:         #1a237e;
+      --text-body:    #2e3057;
+      --text-muted:   #6b6b8a;
+      --white:        #ffffff;
+      --shadow-sm:    0 2px 12px rgba(26,35,126,0.07);
+      --shadow-md:    0 6px 28px rgba(26,35,126,0.11);
+      --shadow-lg:    0 12px 48px rgba(26,35,126,0.15);
+      --radius:       12px;
+      --radius-lg:    18px;
+      --radius-xl:    24px;
+    }
+
+    /* ══════════════════════════════════════════
+       RESET & BASE
+    ══════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Heebo', sans-serif;
+      background: var(--cream);
+      color: var(--text-body);
+      direction: rtl;
+      min-height: 100vh;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; }
+
+    /* ══════════════════════════════════════════
+       ORNAMENT LINE
+    ══════════════════════════════════════════ */
+    .ornament {
+      display: flex; align-items: center;
+      gap: 12px; margin: 0 auto;
+      max-width: 360px; justify-content: center;
+    }
+    .ornament::before, .ornament::after {
+      content: '';
+      flex: 1; height: 1px;
+      background: linear-gradient(to left, transparent, var(--gold));
+    }
+    .ornament::after {
+      background: linear-gradient(to right, transparent, var(--gold));
+    }
+    .ornament-inner {
+      font-size: 14px; color: var(--gold);
+      letter-spacing: 2px; white-space: nowrap;
+    }
+
+    /* ══════════════════════════════════════════
+       TOP ANNOUNCEMENT BAR
+    ══════════════════════════════════════════ */
+    .top-bar {
+      background: var(--royal);
+      color: rgba(255,255,255,0.85);
+      font-size: 12.5px;
       text-align: center;
+      padding: 7px 1rem;
+      letter-spacing: 0.3px;
     }
-    .hero-dots {
-      position: absolute; inset: 0; pointer-events: none;
-      background-image: radial-gradient(circle, rgba(184,146,42,0.12) 1px, transparent 1px);
-      background-size: 28px 28px;
+    .top-bar span { color: var(--gold-light); font-weight: 600; }
+
+    /* ══════════════════════════════════════════
+       SHABBAT BAR
+    ══════════════════════════════════════════ */
+    .shabbat-bar {
+      background: linear-gradient(90deg, #0d1240 0%, var(--royal) 50%, #0d1240 100%);
+      padding: 6px 1rem;
+      text-align: center;
+      font-size: 12.5px;
+      color: rgba(255,255,255,0.8);
+      border-bottom: 1px solid var(--gold-border);
+      display: flex; align-items: center; justify-content: center; gap: 8px;
     }
-    .hero-badge {
-      display: inline-block;
-      background: rgba(184,146,42,0.15);
-      border: 1px solid rgba(184,146,42,0.35);
-      color: var(--gold-light);
-      font-size: 12px;
-      letter-spacing: 0.8px;
-      padding: 5px 16px;
-      border-radius: 20px;
-      margin-bottom: 1.25rem;
-      position: relative;
+    .shabbat-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #4ade80; flex-shrink: 0;
+      box-shadow: 0 0 6px rgba(74,222,128,0.6);
     }
-    .hero h1 { color: #fff; position: relative; margin-bottom: 0.6rem; }
-    .hero h1 em { color: var(--gold-light); font-style: normal; }
-    .hero-sub { font-size: 16px; color: rgba(255,255,255,0.6); margin-bottom: 2rem; position: relative; }
-    .search-wrap { max-width: 560px; margin: 0 auto 2rem; position: relative; }
-    .search-wrap input {
-      width: 100%;
-      padding: 13px 52px 13px 18px;
-      border-radius: var(--radius-lg);
-      border: 1.5px solid rgba(184,146,42,0.4);
-      background: rgba(255,255,255,0.08);
-      color: #fff;
-      font-family: 'Assistant', sans-serif;
-      font-size: 15px; outline: none;
-      transition: border-color 0.2s;
+    .shabbat-dot.closed-dot { background: #f87171; box-shadow: 0 0 6px rgba(248,113,113,0.6); }
+    .shabbat-time-txt { color: var(--gold-light); font-weight: 600; }
+
+    /* ══════════════════════════════════════════
+       HEADER
+    ══════════════════════════════════════════ */
+    .site-header {
+      background: var(--cream);
+      border-bottom: 2px solid var(--gold-border);
+      box-shadow: var(--shadow-sm);
+      position: sticky; top: 0; z-index: 100;
     }
-    .search-wrap input::placeholder { color: rgba(255,255,255,0.4); }
-    .search-wrap input:focus { border-color: var(--gold-light); }
-    .search-btn {
-      position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
-      background: var(--gold); border: none; border-radius: var(--radius-md);
-      width: 36px; height: 36px; cursor: pointer;
+    .header-inner {
+      max-width: 1100px; margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Logo row */
+    .logo-row {
+      display: flex; flex-direction: column;
+      align-items: center; padding: 1.2rem 0 0.8rem;
+      text-align: center; position: relative;
+    }
+    .logo-badge {
+      width: 52px; height: 52px;
+      background: var(--royal);
+      border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      transition: background 0.2s;
+      font-size: 26px;
+      border: 2px solid var(--gold);
+      margin-bottom: 0.4rem;
+      box-shadow: 0 4px 14px rgba(26,35,126,0.25);
     }
-    .search-btn:hover { background: var(--gold-light); }
-    .search-btn svg { width: 18px; height: 18px; stroke: var(--navy); fill: none; stroke-width: 2.5; }
-    .hero-stats {
-      display: flex; justify-content: center; gap: 3rem;
+    .logo-title {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 26px; font-weight: 900;
+      color: var(--royal);
+      letter-spacing: 0.5px;
+      line-height: 1.1;
+    }
+    .logo-sub {
+      font-size: 12px; color: var(--gold);
+      letter-spacing: 2px; font-weight: 500;
+      margin-top: 2px;
+    }
+    .logo-divider {
+      width: 180px; height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      margin: 0.6rem auto 0;
+    }
+
+    /* Nav */
+    .main-nav {
+      display: flex; justify-content: center;
+      gap: 0; border-top: 1px solid var(--cream3);
+    }
+    .main-nav a {
+      padding: 10px 22px;
+      font-size: 14px; font-weight: 500;
+      color: var(--text-muted);
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
       position: relative;
     }
-    .stat-num { font-family: 'Frank Ruhl Libre', serif; font-size: 26px; font-weight: 700; color: var(--gold-light); }
-    .stat-label { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 2px; }
-
-    /* CATEGORIES */
-    .cats-grid {
-      display: grid;
-      grid-template-columns: repeat(8, minmax(0, 1fr));
-      gap: 10px;
+    .main-nav a:hover, .main-nav a.active {
+      color: var(--royal);
+      border-bottom-color: var(--gold);
     }
-    .cat-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 1rem 0.5rem;
-      text-align: center;
+    .nav-cart {
+      position: absolute; left: 1.5rem; top: 50%;
+      transform: translateY(-50%);
+      background: var(--royal);
+      color: var(--gold-light);
+      padding: 6px 14px;
+      border-radius: var(--radius);
+      font-size: 13px; font-weight: 600;
+      display: flex; align-items: center; gap: 6px;
+      transition: background 0.2s;
       cursor: pointer;
-      transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
     }
-    .cat-card:hover, .cat-card.active {
-      border-color: var(--gold);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 14px rgba(184,146,42,0.15);
+    .nav-cart:hover { background: var(--royal-light); }
+    .cart-count {
+      background: var(--gold);
+      color: var(--royal);
+      border-radius: 10px;
+      padding: 1px 7px;
+      font-size: 11px; font-weight: 700;
     }
-    .cat-card.active { background: var(--navy); }
-    .cat-card.active .cat-name { color: var(--gold-light); }
-    .cat-card.active .cat-count { color: rgba(255,255,255,0.45); }
-    .cat-emoji { font-size: 26px; margin-bottom: 5px; display: block; }
-    .cat-name { font-size: 12px; font-weight: 600; color: var(--text); }
-    .cat-count { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
 
-    /* STORES */
+    /* ══════════════════════════════════════════
+       HERO
+    ══════════════════════════════════════════ */
+    .hero {
+      background:
+        linear-gradient(180deg, rgba(26,35,126,0.92) 0%, rgba(26,35,126,0.82) 100%),
+        repeating-linear-gradient(
+          -45deg,
+          rgba(184,134,11,0.06) 0px,
+          rgba(184,134,11,0.06) 1px,
+          transparent 1px,
+          transparent 18px
+        );
+      padding: 4.5rem 1.5rem 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Decorative corner elements */
+    .hero::before, .hero::after {
+      content: '✦';
+      position: absolute;
+      font-size: 80px;
+      color: rgba(184,134,11,0.08);
+      line-height: 1;
+    }
+    .hero::before { top: -10px; right: 40px; }
+    .hero::after  { bottom: -10px; left: 40px; }
+
+    .hero-eyebrow {
+      display: inline-block;
+      background: rgba(184,134,11,0.18);
+      border: 1px solid rgba(212,160,23,0.4);
+      color: var(--gold-light);
+      font-size: 12px; letter-spacing: 2px;
+      padding: 5px 18px; border-radius: 20px;
+      margin-bottom: 1.4rem;
+      font-weight: 500;
+    }
+    .hero h1 {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: clamp(26px, 5vw, 46px);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.25;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+    .hero h1 em {
+      color: var(--gold-light);
+      font-style: normal;
+      position: relative;
+    }
+    .hero h1 em::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; right: 0; left: 0;
+      height: 2px;
+      background: var(--gold-light);
+      border-radius: 2px;
+    }
+    .hero-sub {
+      font-size: 16px;
+      color: rgba(255,255,255,0.68);
+      margin-bottom: 2.5rem;
+      max-width: 520px;
+      margin-right: auto; margin-left: auto;
+    }
+
+    /* Search */
+    .hero-search {
+      max-width: 560px;
+      margin: 0 auto 2.5rem;
+      display: flex;
+      background: rgba(255,255,255,0.1);
+      border: 1.5px solid rgba(212,160,23,0.45);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      backdrop-filter: blur(4px);
+    }
+    .hero-search input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      padding: 13px 20px;
+      font-family: 'Heebo', sans-serif;
+      font-size: 15px;
+      color: #fff;
+      outline: none;
+    }
+    .hero-search input::placeholder { color: rgba(255,255,255,0.45); }
+    .hero-search button {
+      background: var(--gold);
+      border: none;
+      padding: 0 22px;
+      color: var(--royal);
+      font-size: 18px;
+      cursor: pointer;
+      transition: background 0.2s;
+      font-weight: 700;
+    }
+    .hero-search button:hover { background: var(--gold-light); }
+
+    /* Hero stats */
+    .hero-stats {
+      display: flex; justify-content: center;
+      gap: 3rem; position: relative;
+    }
+    .stat { text-align: center; }
+    .stat-n {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 28px; font-weight: 900;
+      color: var(--gold-light);
+      line-height: 1;
+    }
+    .stat-l {
+      font-size: 11px;
+      color: rgba(255,255,255,0.5);
+      margin-top: 4px;
+      letter-spacing: 0.3px;
+    }
+
+    /* ══════════════════════════════════════════
+       SECTION TITLES
+    ══════════════════════════════════════════ */
+    .section { padding: 3rem 0; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+
+    .section-head {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .section-eyebrow {
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: var(--gold);
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .section-title {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: clamp(22px, 3vw, 30px);
+      color: var(--royal);
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+    }
+    .section-line {
+      width: 60px; height: 3px;
+      background: linear-gradient(to right, var(--gold), var(--gold-light));
+      border-radius: 2px;
+      margin: 0 auto;
+    }
+
+    /* ══════════════════════════════════════════
+       CATEGORY PILLS
+    ══════════════════════════════════════════ */
+    .cats-row {
+      display: flex; flex-wrap: wrap;
+      justify-content: center; gap: 10px;
+      margin-bottom: 2.5rem;
+    }
+    .cat-pill {
+      display: flex; align-items: center; gap: 7px;
+      padding: 8px 18px;
+      border-radius: 30px;
+      border: 1.5px solid var(--gold-border);
+      background: var(--white);
+      font-size: 13px; font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: var(--shadow-sm);
+    }
+    .cat-pill:hover, .cat-pill.active {
+      background: var(--royal);
+      color: var(--gold-light);
+      border-color: var(--royal);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-1px);
+    }
+    .cat-pill-icon { font-size: 16px; }
+
+    /* ══════════════════════════════════════════
+       STORE CARDS
+    ══════════════════════════════════════════ */
     .stores-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 22px;
     }
-    .store-card { cursor: pointer; }
+    .store-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--cream3);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s;
+      cursor: pointer;
+    }
+    .store-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--gold-border);
+    }
+
+    /* Top accent line */
+    .store-card::before {
+      content: '';
+      display: block;
+      height: 3px;
+      background: linear-gradient(to right, var(--gold), var(--gold-light), var(--gold));
+    }
+
     .store-thumb {
-      height: 120px;
+      height: 130px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 48px;
-      border-bottom: 1px solid var(--border);
+      font-size: 56px;
+      position: relative;
     }
-    .store-body { padding: 0.9rem 1rem; }
-    .store-name { font-size: 15px; font-weight: 700; color: var(--text); }
-    .store-street { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
-    .store-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 7px; }
+    .store-badge {
+      position: absolute; top: 10px; right: 10px;
+      background: var(--gold-pale);
+      color: var(--gold);
+      border: 1px solid var(--gold-border);
+      border-radius: 20px;
+      font-size: 10px; font-weight: 700;
+      padding: 3px 10px;
+      letter-spacing: 0.5px;
+    }
+
+    .store-body { padding: 1.1rem 1.25rem; }
+    .store-name {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 18px; font-weight: 700;
+      color: var(--royal); margin-bottom: 3px;
+    }
+    .store-street {
+      font-size: 12.5px; color: var(--text-muted);
+      display: flex; align-items: center; gap: 4px;
+    }
+    .store-tags {
+      display: flex; flex-wrap: wrap; gap: 5px;
+      margin-top: 10px;
+    }
     .store-tag {
-      font-size: 10px; padding: 2px 8px;
-      border-radius: 10px; background: var(--cream2);
-      color: var(--text-muted); border: 1px solid var(--border);
+      font-size: 11px; padding: 3px 9px;
+      border-radius: 10px;
+      background: var(--cream2);
+      color: var(--text-muted);
+      border: 1px solid var(--cream3);
     }
+
     .store-footer {
-      padding: 0.55rem 1rem 0.8rem;
+      padding: 0.7rem 1.25rem 1rem;
       display: flex; align-items: center; justify-content: space-between;
       border-top: 1px solid var(--cream2);
     }
-    .stars { color: var(--gold); font-size: 12px; }
-    .review-count { font-size: 10px; color: var(--text-muted); margin-right: 4px; }
-
-    /* PROMO BANNER */
-    .promo-banner {
-      background: linear-gradient(135deg, var(--navy) 0%, #2a3a60 100%);
-      border-radius: var(--radius-xl);
-      padding: 2rem 2.5rem;
-      display: flex; align-items: center; justify-content: space-between;
-      border: 1px solid rgba(184,146,42,0.3);
-      margin: 1rem 0 2.5rem;
+    .store-stars { color: var(--gold); font-size: 13px; }
+    .review-n { font-size: 11px; color: var(--text-muted); margin-right: 4px; }
+    .store-cta {
+      background: var(--royal);
+      color: var(--gold-light);
+      border: none; border-radius: var(--radius);
+      padding: 6px 16px; font-size: 13px; font-weight: 600;
+      cursor: pointer; font-family: 'Heebo', sans-serif;
+      transition: background 0.2s;
     }
-    .promo-text h3 { font-size: 22px; color: #fff; margin-bottom: 0.4rem; }
+    .store-cta:hover { background: var(--royal-light); }
+
+    /* ══════════════════════════════════════════
+       PROMO STRIP
+    ══════════════════════════════════════════ */
+    .promo-strip {
+      background: var(--royal);
+      border-radius: var(--radius-lg);
+      padding: 2rem 2.5rem;
+      display: flex; align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      border: 1px solid rgba(184,134,11,0.3);
+      margin: 1rem 0 3rem;
+      position: relative; overflow: hidden;
+    }
+    .promo-strip::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        -45deg,
+        rgba(184,134,11,0.04) 0px,
+        rgba(184,134,11,0.04) 1px,
+        transparent 1px, transparent 16px
+      );
+    }
+    .promo-text h3 {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 22px; color: #fff;
+      margin-bottom: 0.35rem;
+    }
     .promo-text p { font-size: 14px; color: rgba(255,255,255,0.6); }
-    .promo-badge { font-size: 56px; }
+    .promo-icon { font-size: 52px; flex-shrink: 0; position: relative; }
+    .promo-btn {
+      background: var(--gold);
+      color: var(--royal);
+      border: none; border-radius: var(--radius);
+      padding: 10px 22px; font-size: 14px; font-weight: 700;
+      cursor: pointer; font-family: 'Heebo', sans-serif;
+      transition: background 0.2s; position: relative;
+      white-space: nowrap;
+    }
+    .promo-btn:hover { background: var(--gold-light); }
 
-    /* EMPTY STATE */
-    .empty-state { text-align: center; padding: 3rem 1rem; color: var(--text-muted); }
-    .empty-state .emoji { font-size: 48px; margin-bottom: 1rem; display: block; }
-    .empty-state h3 { font-family: 'Frank Ruhl Libre', serif; color: var(--text-mid); }
+    /* ══════════════════════════════════════════
+       HOW IT WORKS
+    ══════════════════════════════════════════ */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .step-card {
+      background: var(--white);
+      border: 1px solid var(--cream3);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem 1.2rem;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .step-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .step-num {
+      width: 40px; height: 40px;
+      background: var(--royal);
+      color: var(--gold-light);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 700;
+      font-family: 'Frank Ruhl Libre', serif;
+      margin: 0 auto 0.9rem;
+    }
+    .step-icon { font-size: 30px; margin-bottom: 0.6rem; display: block; }
+    .step-title { font-size: 15px; font-weight: 600; color: var(--royal); margin-bottom: 0.4rem; }
+    .step-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
 
+    /* ══════════════════════════════════════════
+       SHABBAT SECTION (always rendered, shown/hidden by JS)
+    ══════════════════════════════════════════ */
+    #shabbat-overlay {
+      display: none;
+      position: fixed; inset: 0; z-index: 9999;
+      background: rgba(8,10,30,0.93);
+      align-items: center; justify-content: center;
+      text-align: center;
+    }
+    #shabbat-overlay.show { display: flex; }
+
+    .shabbat-modal {
+      background: #0d1240;
+      border: 2px solid var(--gold);
+      border-radius: var(--radius-xl);
+      padding: 3rem 3.5rem;
+      max-width: 460px; width: 92%;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+      animation: fadeInUp 0.5s ease;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Candles CSS art */
+    .candles-wrap {
+      display: flex; justify-content: center; gap: 22px;
+      margin-bottom: 1.75rem;
+    }
+    .candle {
+      display: flex; flex-direction: column; align-items: center;
+      position: relative;
+    }
+    .flame {
+      width: 12px; height: 20px;
+      background: radial-gradient(ellipse at 50% 80%, #fff 0%, #ffe066 30%, #ffaa00 60%, transparent 100%);
+      border-radius: 50% 50% 30% 30%;
+      margin-bottom: 2px;
+      animation: flicker 1.8s ease-in-out infinite alternate;
+      filter: drop-shadow(0 0 6px #ffaa00);
+    }
+    .flame:nth-child(1) { animation-delay: 0.3s; }
+    @keyframes flicker {
+      0%   { transform: scaleX(1) scaleY(1) rotate(-1deg); opacity: 0.9; }
+      50%  { transform: scaleX(0.88) scaleY(1.1) rotate(1deg); opacity: 1; }
+      100% { transform: scaleX(1.05) scaleY(0.95) rotate(-0.5deg); opacity: 0.85; }
+    }
+    .candle-body {
+      width: 14px; height: 54px;
+      background: linear-gradient(to bottom, #fff9e6, #f5e6b0);
+      border-radius: 3px 3px 2px 2px;
+      border: 1px solid rgba(184,134,11,0.3);
+    }
+    .candle-base {
+      width: 20px; height: 6px;
+      background: var(--gold);
+      border-radius: 0 0 4px 4px;
+    }
+    .candle-drip {
+      position: absolute;
+      top: 22px; right: -3px;
+      width: 6px; height: 10px;
+      background: rgba(255,249,230,0.7);
+      border-radius: 0 0 4px 4px;
+    }
+
+    .shabbat-modal h2 {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 30px; color: var(--gold-light);
+      margin-bottom: 0.5rem;
+    }
+    .shabbat-modal .hebrew-verse {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 15px; color: rgba(255,255,255,0.5);
+      font-style: italic; margin-bottom: 1rem;
+    }
+    .shabbat-modal p {
+      font-size: 14px; color: rgba(255,255,255,0.7);
+      line-height: 1.85; margin-bottom: 0.5rem;
+    }
+    .shabbat-end-time {
+      display: inline-block;
+      background: rgba(184,134,11,0.15);
+      border: 1px solid var(--gold-border);
+      color: var(--gold-light);
+      border-radius: var(--radius);
+      padding: 8px 18px;
+      font-size: 15px; font-weight: 700;
+      margin: 0.75rem 0 1.5rem;
+    }
+    .shabbat-browse-btn {
+      background: transparent;
+      border: 1.5px solid var(--gold);
+      color: var(--gold-light);
+      border-radius: var(--radius);
+      padding: 9px 24px;
+      font-family: 'Heebo', sans-serif;
+      font-size: 14px; font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .shabbat-browse-btn:hover {
+      background: rgba(184,134,11,0.15);
+    }
+
+    /* ══════════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════════ */
+    .site-footer {
+      background: var(--royal);
+      border-top: 3px solid var(--gold);
+      padding: 3rem 1.5rem 0;
+      color: rgba(255,255,255,0.75);
+      margin-top: 0;
+    }
+    .footer-grid {
+      max-width: 1100px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.2fr;
+      gap: 2.5rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .footer-brand .brand-name {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 20px; font-weight: 700; color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    .footer-brand p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.8; }
+    .footer-col h4 { font-size: 12px; font-weight: 700; color: var(--gold-light); letter-spacing: 1.5px; margin-bottom: 1rem; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 0.45rem; }
+    .footer-col a { font-size: 13.5px; color: rgba(255,255,255,0.55); transition: color 0.2s; }
+    .footer-col a:hover { color: var(--gold-light); }
+
+    /* Hours */
+    .hours-list { list-style: none; }
+    .hours-list li {
+      display: flex; justify-content: space-between;
+      font-size: 13px; padding: 4px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.55);
+    }
+    .hours-list li:last-child { border-bottom: none; }
+    .hours-list .day { }
+    .hours-list .time { color: rgba(255,255,255,0.8); }
+    .hours-list .closed-txt { color: #f87171; }
+
+    .footer-bottom {
+      max-width: 1100px; margin: 0 auto;
+      padding: 1.2rem 0;
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 12px; color: rgba(255,255,255,0.3);
+    }
+    .footer-bottom .gold-txt { color: var(--gold-light); }
+
+    /* ══════════════════════════════════════════
+       TOAST
+    ══════════════════════════════════════════ */
+    #toast {
+      position: fixed; bottom: 2rem; left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      background: var(--royal);
+      color: #fff;
+      padding: 10px 22px;
+      border-radius: var(--radius);
+      border: 1px solid var(--gold-border);
+      font-size: 13.5px;
+      opacity: 0;
+      transition: all 0.3s;
+      z-index: 8000;
+      pointer-events: none;
+      white-space: nowrap;
+      box-shadow: var(--shadow-md);
+    }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ══════════════════════════════════════════
+       EMPTY STATE
+    ══════════════════════════════════════════ */
+    .empty-state {
+      text-align: center; padding: 3.5rem 1rem;
+      color: var(--text-muted); grid-column: 1/-1;
+    }
+    .empty-state .big { font-size: 52px; margin-bottom: 1rem; display: block; }
+    .empty-state h3 { font-family: 'Frank Ruhl Libre', serif; color: var(--royal); margin-bottom: 0.5rem; }
+
+    /* ══════════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════════ */
     @media (max-width: 900px) {
-      .cats-grid { grid-template-columns: repeat(4, 1fr); }
-      .promo-banner { flex-direction: column; gap: 1rem; text-align: center; }
+      .steps-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .hero-stats { gap: 1.8rem; }
+      .promo-strip { flex-direction: column; text-align: center; }
     }
     @media (max-width: 600px) {
-      .cats-grid { grid-template-columns: repeat(4, 1fr); }
-      .hero-stats { gap: 1.5rem; }
+      .main-nav { gap: 0; }
+      .main-nav a { padding: 10px 12px; font-size: 13px; }
+      .nav-cart { display: none; }
+      .steps-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+      .hero-stats { gap: 1.2rem; flex-wrap: wrap; }
+      .stat-n { font-size: 22px; }
     }
   </style>
 </head>
 <body>
 
-<!-- SHABBAT OVERLAY -->
-<div id="shabbat-overlay" role="dialog" aria-modal="true">
+<!-- ══ SHABBAT OVERLAY ══ -->
+<div id="shabbat-overlay" role="dialog" aria-modal="true" aria-label="שבת שלום">
   <div class="shabbat-modal">
-    <div style="font-size:48px;margin-bottom:1rem">🕯️</div>
+    <div class="candles-wrap">
+      <div class="candle">
+        <div class="flame"></div>
+        <div class="candle-body"></div>
+        <div class="candle-drip"></div>
+        <div class="candle-base"></div>
+      </div>
+      <div class="candle">
+        <div class="flame" style="animation-delay:0.6s"></div>
+        <div class="candle-body"></div>
+        <div class="candle-drip" style="left:-3px;right:auto"></div>
+        <div class="candle-base"></div>
+      </div>
+    </div>
     <h2>שבת שלום</h2>
-    <p>האתר סגור לרכישות בשבת ובמועדי ישראל.<br>תוכל לגלוש, לראות מוצרים ולתכנן את הקנייה שלך.</p>
-    <span class="end-time" id="overlay-end-time"></span>
-    <br><br>
-    <button class="btn btn-gold" onclick="document.getElementById('shabbat-overlay').classList.remove('show')">
-      המשך גלישה
+    <div class="hebrew-verse">"וַיְבָרֶךְ אֱלֹהִים אֶת יוֹם הַשְּׁבִיעִי"</div>
+    <p>האתר סגור לרכישות בשבת קודש ובמועדי ישראל.<br>תוכל לגלוש, לצפות בחנויות ולתכנן את הקנייה שלך.</p>
+    <div class="shabbat-end-time" id="shabbat-end-label">טוען שעות שבת...</div>
+    <br>
+    <button class="shabbat-browse-btn" onclick="document.getElementById('shabbat-overlay').classList.remove('show')">
+      המשך לגלישה ←
     </button>
   </div>
 </div>
 
-<!-- HEADER -->
+<!-- ══ TOP BAR ══ -->
+<div class="top-bar">
+  משלוח מקומי לכל בני ברק · תשלום מאובטח · <span>כל התכנים מאושרים לפי סטנדרט הקהילה</span>
+</div>
+
+<!-- ══ SHABBAT STATUS BAR ══ -->
+<div class="shabbat-bar" id="shabbat-bar">
+  <div class="shabbat-dot" id="shabbat-dot"></div>
+  <span id="shabbat-msg">בודק שעות שבת...</span>
+  <span class="shabbat-time-txt" id="shabbat-time"></span>
+</div>
+
+<!-- ══ HEADER ══ -->
 <header class="site-header">
   <div class="header-inner">
-    <a href="index.html" class="logo">
-      <div class="logo-icon">🏪</div>
-      <div>
-        <div class="logo-name">קניון בני ברק</div>
-        <div class="logo-sub">המרכז המסחרי הדיגיטלי</div>
-      </div>
-    </a>
-    <nav class="main-nav">
-      <a href="index.html" class="active">דף הבית</a>
-      <a href="stores.html">כל החנויות</a>
-      <a href="cart.html">סל קניות</a>
-      <a href="admin.html">ניהול חנות</a>
-      <a href="#contact">צור קשר</a>
-    </nav>
-    <div class="header-actions">
-      <a href="cart.html" class="btn-cart">
-        🛒 סל <span class="cart-badge">0</span>
-      </a>
+    <div class="logo-row">
+      <div class="logo-badge">🏪</div>
+      <div class="logo-title">קניון בני ברק הדיגיטלי</div>
+      <div class="logo-sub">✦ מיטב חנויות העיר במקום אחד ✦</div>
+      <div class="logo-divider"></div>
     </div>
+    <nav class="main-nav" style="position:relative">
+      <a href="#" class="active" onclick="filterCat('all',this);return false">דף הבית</a>
+      <a href="#" onclick="filterCat('clothing-men',this);filterCat('clothing-women',this);return false">ביגוד</a>
+      <a href="#" onclick="filterCat('home',this);return false">הבית והמתנה</a>
+      <a href="#" onclick="filterCat('judaica',this);return false">יודאיקה</a>
+      <a href="#contact">צור קשר</a>
+      <a href="cart.html" class="nav-cart">🛒 סל <span class="cart-count" id="cart-count">0</span></a>
+    </nav>
   </div>
 </header>
 
-<!-- SHABBAT BAR -->
-<div class="shabbat-bar" id="shabbat-bar">
-  <div class="shabbat-dot" id="shabbat-dot" style="background:#4ade80"></div>
-  <span class="shabbat-msg" id="shabbat-msg">האתר פעיל</span>
-  <span class="shabbat-time" id="shabbat-time"></span>
-</div>
-
-<!-- HERO -->
+<!-- ══ HERO ══ -->
 <section class="hero">
-  <div class="hero-dots"></div>
-  <div class="hero-badge">✡ רחוב רבי עקיבא · חזון איש · ובכל רחבי בני ברק</div>
-  <h1>כל החנויות של בני ברק<br>במקום <em>אחד</em></h1>
-  <p class="hero-sub">קנה ממספר חנויות בבת-אחת · משלוח מקומי מהיר · עיצוב צנוע ונקי</p>
-  <div class="search-wrap">
-    <input type="text" id="hero-search" placeholder="חפש חנות, מוצר, קטגוריה..." autocomplete="off">
-    <button class="search-btn" onclick="doSearch()">
-      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    </button>
+  <div class="hero-eyebrow">✡ רחוב רבי עקיבא · חזון איש · ובכל רחבי בני ברק ✡</div>
+  <h1>
+    מיטב החנויות של<br>
+    <em>רבי עקיבא וחזון איש</em><br>
+    אצלכם בבית
+  </h1>
+  <p class="hero-sub">קנו ממספר חנויות מוכרות בתשלום אחד, עם משלוח מקומי מהיר ובטוח</p>
+  <div class="hero-search">
+    <input type="text" id="search-input" placeholder="חפש חנות, מוצר, קטגוריה..." autocomplete="off">
+    <button onclick="doSearch()">🔍</button>
   </div>
   <div class="hero-stats">
-    <div class="stat"><div class="stat-num">120+</div><div class="stat-label">חנויות פעילות</div></div>
-    <div class="stat"><div class="stat-num">48 שע'</div><div class="stat-label">זמן אספקה ממוצע</div></div>
-    <div class="stat"><div class="stat-num">100%</div><div class="stat-label">תוכן מאושר</div></div>
-    <div class="stat"><div class="stat-num">0 ₪</div><div class="stat-label">דמי כניסה לחנות</div></div>
+    <div class="stat"><div class="stat-n">120+</div><div class="stat-l">חנויות פעילות</div></div>
+    <div class="stat"><div class="stat-n">48 שע'</div><div class="stat-l">אספקה ממוצעת</div></div>
+    <div class="stat"><div class="stat-n">100%</div><div class="stat-l">תוכן מאושר</div></div>
+    <div class="stat"><div class="stat-n">0 ₪</div><div class="stat-l">דמי כניסה לחנות</div></div>
   </div>
 </section>
 
-<main>
-  <div class="container">
+<!-- ══ STORES ══ -->
+<div class="container">
 
-    <!-- CATEGORIES -->
-    <section class="section">
-      <div class="section-title">קניה לפי קטגוריה</div>
-      <div class="cats-grid" id="cats-grid">
-        <div class="cat-card active" onclick="filterCat('all', this)">
-          <span class="cat-emoji">🏪</span>
-          <div class="cat-name">הכל</div>
-          <div class="cat-count">8 קטגוריות</div>
-        </div>
-        <div class="cat-card" onclick="filterCat('clothing-men', this)">
-          <span class="cat-emoji">👔</span>
-          <div class="cat-name">ביגוד גברים</div>
-          <div class="cat-count">23 חנויות</div>
-        </div>
-        <div class="cat-card" onclick="filterCat('clothing-women', this)">
-          <span class="cat-emoji">👗</span>
-          <div class="cat-name">ביגוד נשים</div>
-          <div class="cat-count">31 חנויות</div>
-        </div>
-        <div class="cat-card" onclick="filterCat('toys', this)">
-          <span class="cat-emoji">🧸</span>
-          <div class="cat-name">צעצועים</div>
-          <div class="cat-count">14 חנויות</div>
-        </div>
-        <div class="cat-card" onclick="filterCat('judaica', this)">
-          <span class="cat-emoji">🕍</span>
-          <div class="cat-name">יודאיקה</div>
-          <div class="cat-count">18 חנויות</div>
-        </div>
-        <div class="cat-card" onclick="filterCat('home', this)">
-          <span class="cat-emoji">🏠</span>
-          <div class="cat-name">הבית</div>
-          <div class="cat-count">27 חנויות</div>
-        </div>
-        <div class="cat-card" onclick="filterCat('books', this)">
-          <span class="cat-emoji">📚</span>
-          <div class="cat-name">ספרים</div>
-          <div class="cat-count">11 חנויות</div>
-        </div>
-        <div class="cat-card" onclick="filterCat('food', this)">
-          <span class="cat-emoji">🍞</span>
-          <div class="cat-name">מזון</div>
-          <div class="cat-count">16 חנויות</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PROMO -->
-    <div class="promo-banner">
-      <div class="promo-text">
-        <h3>סל קניות מאוחד 🛒</h3>
-        <p>קנה ממספר חנויות בתשלום אחד · אנחנו מתאמים את המשלוח עם כל בעל חנות</p>
-      </div>
-      <div class="promo-badge">🤝</div>
+  <section class="section">
+    <div class="section-head">
+      <div class="section-eyebrow">הקניון שלנו</div>
+      <h2 class="section-title">גלה את חנויות הקניון</h2>
+      <div class="section-line"></div>
     </div>
 
-    <!-- STORES -->
-    <section class="section" style="padding-top:0">
-      <div class="section-title">
-        <span id="stores-title">חנויות מובילות</span>
+    <!-- Category filter pills -->
+    <div class="cats-row" id="cats-row">
+      <div class="cat-pill active" onclick="filterCat('all',this)">
+        <span class="cat-pill-icon">🏪</span> כל החנויות
       </div>
-      <div class="stores-grid" id="stores-grid"></div>
-    </section>
+      <div class="cat-pill" onclick="filterCat('clothing-men',this)">
+        <span class="cat-pill-icon">👔</span> ביגוד גברים
+      </div>
+      <div class="cat-pill" onclick="filterCat('clothing-women',this)">
+        <span class="cat-pill-icon">👗</span> ביגוד נשים
+      </div>
+      <div class="cat-pill" onclick="filterCat('toys',this)">
+        <span class="cat-pill-icon">🧸</span> צעצועים
+      </div>
+      <div class="cat-pill" onclick="filterCat('judaica',this)">
+        <span class="cat-pill-icon">🕍</span> יודאיקה
+      </div>
+      <div class="cat-pill" onclick="filterCat('home',this)">
+        <span class="cat-pill-icon">🏠</span> הבית
+      </div>
+      <div class="cat-pill" onclick="filterCat('books',this)">
+        <span class="cat-pill-icon">📚</span> ספרים
+      </div>
+      <div class="cat-pill" onclick="filterCat('food',this)">
+        <span class="cat-pill-icon">🍞</span> מזון
+      </div>
+    </div>
 
+    <!-- Stores grid -->
+    <div class="stores-grid" id="stores-grid"></div>
+  </section>
+
+  <!-- PROMO STRIP -->
+  <div class="promo-strip">
+    <div class="promo-text">
+      <h3>🛒 סל קניות מאוחד</h3>
+      <p>קנו ממספר חנויות — תשלום אחד, תיאום משלוח אחד. אנחנו מסדרים הכל.</p>
+    </div>
+    <div class="promo-icon">🤝</div>
+    <button class="promo-btn" onclick="window.location='cart.html'">לסל הקניות ←</button>
   </div>
-</main>
 
-<!-- FOOTER -->
-<footer class="site-footer" id="contact">
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <div class="logo" style="margin-bottom:0.75rem">
-        <div class="logo-icon">🏪</div>
-        <div>
-          <div class="logo-name" style="color:#fff">קניון בני ברק</div>
-          <div class="logo-sub">המרכז המסחרי הדיגיטלי</div>
-        </div>
+  <!-- HOW IT WORKS -->
+  <section class="section" style="padding-top:0">
+    <div class="section-head">
+      <div class="section-eyebrow">תהליך פשוט</div>
+      <h2 class="section-title">איך זה עובד?</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">א</div>
+        <span class="step-icon">🔍</span>
+        <div class="step-title">גלה חנויות</div>
+        <div class="step-desc">חפש לפי קטגוריה או שם — כל חנויות בני ברק במקום אחד</div>
       </div>
-      <p>פלטפורמה דיגיטלית לעסקים קטנים ובינוניים בבני ברק.<br>כל החנויות עוברות אישור תוכן. האתר נסגר בשבת ומועדים.</p>
+      <div class="step-card">
+        <div class="step-num">ב</div>
+        <span class="step-icon">🛒</span>
+        <div class="step-title">הוסף לסל</div>
+        <div class="step-desc">קנה ממספר חנויות בבת-אחת בסל קניות מאוחד</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">ג</div>
+        <span class="step-icon">💳</span>
+        <div class="step-title">שלם בבטחה</div>
+        <div class="step-desc">תשלום מאובטח בכרטיס אשראי או PayMe — תשלום אחד לכל הסל</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">ד</div>
+        <span class="step-icon">🚚</span>
+        <div class="step-title">קבל עד הבית</div>
+        <div class="step-desc">שליח מקומי מבני ברק יביא הכל אליך תוך 24–48 שעות</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer class="site-footer" id="contact">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="brand-name">🏪 קניון בני ברק הדיגיטלי</div>
+      <p>
+        פלטפורמה דיגיטלית לעסקים קטנים ובינוניים בבני ברק.<br>
+        כל החנויות עוברות אישור תוכן לפי סטנדרטי הקהילה.<br>
+        האתר נסגר אוטומטית בשבת קודש ובמועדי ישראל.
+      </p>
     </div>
     <div class="footer-col">
-      <h4>ניווט מהיר</h4>
+      <h4>ניווט</h4>
       <ul>
-        <li><a href="index.html">דף הבית</a></li>
-        <li><a href="stores.html">כל החנויות</a></li>
+        <li><a href="#">דף הבית</a></li>
+        <li><a href="#">כל החנויות</a></li>
         <li><a href="cart.html">סל קניות</a></li>
         <li><a href="admin.html">ניהול חנות</a></li>
       </ul>
     </div>
     <div class="footer-col">
-      <h4>מידע</h4>
+      <h4>עזרה</h4>
       <ul>
         <li><a href="#">שאלות נפוצות</a></li>
         <li><a href="#">מדיניות משלוחים</a></li>
-        <li><a href="#">תנאי שימוש</a></li>
+        <li><a href="#">ביטול הזמנה</a></li>
         <li><a href="#">צור קשר</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>שעות פעילות</h4>
+      <ul class="hours-list">
+        <li><span class="day">ראשון – חמישי</span><span class="time">08:00 – 22:00</span></li>
+        <li><span class="day">יום שישי</span><span class="time">08:00 – 13:30</span></li>
+        <li><span class="day">מוצאי שבת</span><span class="time">22:00 – 00:00</span></li>
+        <li><span class="day">שבת קודש</span><span class="closed-txt">סגור</span></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    © 2025 קניון בני ברק הדיגיטלי · כל הזכויות שמורות · נבנה באהבה לקהילה
+    <span>© 2025 קניון בני ברק הדיגיטלי · כל הזכויות שמורות</span>
+    <span class="gold-txt">נבנה באהבה לקהילת בני ברק ✦</span>
   </div>
 </footer>
 
 <div id="toast"></div>
 
-<script src="js/mall.js"></script>
+<!-- ══════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════ -->
 <script>
-  let currentCat = 'all';
-  let currentQuery = '';
+'use strict';
 
-  function renderStores(stores) {
-    const grid = document.getElementById('stores-grid');
-    if (!stores.length) {
-      grid.innerHTML = `
-        <div class="empty-state" style="grid-column:1/-1">
-          <span class="emoji">🔍</span>
-          <h3>לא נמצאו חנויות</h3>
-          <p style="margin-top:0.5rem">נסה מילת חיפוש אחרת</p>
-        </div>`;
-      return;
-    }
-    grid.innerHTML = stores.map(s => `
-      <div class="card store-card" onclick="window.location='store.html?id=${s.id}'">
-        <div class="store-thumb" style="background:${s.bg}">${s.emoji}</div>
-        <div class="store-body">
-          <div class="store-name">${s.name}</div>
-          <div class="store-street">📍 ${s.street}</div>
-          <div class="store-tags">
-            ${s.tags.map(t => `<span class="store-tag">${t}</span>`).join('')}
-          </div>
-        </div>
-        <div class="store-footer">
-          <span class="stars">${'★'.repeat(s.rating)}${'☆'.repeat(5-s.rating)}</span>
-          <span class="review-count">(${s.reviews} חוות דעת)</span>
-          <button class="btn btn-outline btn-sm">לחנות ←</button>
-        </div>
+// ===== STORE DATA =====
+const STORES = [
+  { id:1, name:'בית הבגד', category:'clothing-men',     street:'רחוב רבי עקיבא 45', emoji:'🎩', bg:'#eef1fa', tags:['חליפות','בגדי שבת','גברים'],      rating:5, reviews:48, badge:'מומלץ' },
+  { id:2, name:'יודאיקה שפירא', category:'judaica',     street:'רחוב חזון איש 12',  emoji:'🕎', bg:'#faf5e4', tags:['מנורות','מזוזות','כלי שבת'],      rating:4, reviews:31, badge:'ותיק' },
+  { id:3, name:'צעצועי פרידמן', category:'toys',        street:'שוק העיר, דוכן 7',  emoji:'🧸', bg:'#eaf5ee', tags:['חינוכי','לתינוקות','משחקים'],     rating:5, reviews:62, badge:'פופולרי' },
+  { id:4, name:'ספרייה בלפור',  category:'books',       street:'רחוב בלפור 3',       emoji:'📖', bg:'#faf0e6', tags:['ספרי קודש','ילדים','לימוד'],      rating:4, reviews:27, badge:'' },
+  { id:5, name:'מודה ושמחה',    category:'clothing-women', street:'רחוב רבי עקיבא 78', emoji:'👒', bg:'#faeef2', tags:['נשים','כיסויי ראש','צנוע'],   rating:5, reviews:94, badge:'מובילה' },
+  { id:6, name:'הבית שלנו',     category:'home',         street:'רחוב חזון איש 33',  emoji:'🏡', bg:'#f0edf8', tags:['כלי בית','מטבח','עיצוב'],       rating:4, reviews:39, badge:'' },
+  { id:7, name:'מאפיית אשכנזי', category:'food',         street:'שוק העיר, דוכן 2',  emoji:'🍞', bg:'#fff5e6', tags:['חלות','עוגות','כשר למהדרין'],    rating:5, reviews:118, badge:'כשר למהדרין' },
+  { id:8, name:'תכשיטי בן-דוד', category:'jewelry',      street:'רחוב ז\'בוטינסקי 5', emoji:'💍', bg:'#fce4ec', tags:['מתנות','זהב','נישואין'],        rating:4, reviews:22, badge:'' },
+];
+
+// ===== CART =====
+function getCart()  { try { return JSON.parse(localStorage.getItem('bbcart')) || []; } catch { return []; } }
+function saveCart(c){ localStorage.setItem('bbcart', JSON.stringify(c)); updateCartBadge(); }
+function cartCount(){ return getCart().reduce((s,i) => s + i.qty, 0); }
+function updateCartBadge(){ document.getElementById('cart-count').textContent = cartCount(); }
+
+function addToCart(storeId, name, price) {
+  if (isShabbat()) { showToast('האתר סגור בשבת 🕯️'); return; }
+  const cart = getCart();
+  const ex = cart.find(i => i.name === name);
+  if (ex) ex.qty++;
+  else cart.push({ storeId, name, price, qty: 1 });
+  saveCart(cart);
+  showToast('✓ ' + name + ' נוסף לסל');
+}
+
+// ===== RENDER STORES =====
+let currentCat = 'all';
+
+function renderStores(list) {
+  const grid = document.getElementById('stores-grid');
+  if (!list.length) {
+    grid.innerHTML = `<div class="empty-state"><span class="big">🔍</span><h3>לא נמצאו חנויות</h3><p>נסה מילת חיפוש אחרת</p></div>`;
+    return;
+  }
+  grid.innerHTML = list.map(s => `
+    <div class="store-card" onclick="window.location='store.html?id=${s.id}'">
+      <div class="store-thumb" style="background:${s.bg}">
+        ${s.emoji}
+        ${s.badge ? `<span class="store-badge">${s.badge}</span>` : ''}
       </div>
-    `).join('');
-  }
+      <div class="store-body">
+        <div class="store-name">${s.name}</div>
+        <div class="store-street">📍 ${s.street}</div>
+        <div class="store-tags">${s.tags.map(t=>`<span class="store-tag">${t}</span>`).join('')}</div>
+      </div>
+      <div class="store-footer">
+        <div>
+          <span class="store-stars">${'★'.repeat(s.rating)}${'☆'.repeat(5-s.rating)}</span>
+          <span class="review-n">(${s.reviews})</span>
+        </div>
+        <button class="store-cta" onclick="event.stopPropagation();window.location='store.html?id=${s.id}'">לחנות ←</button>
+      </div>
+    </div>`).join('');
+}
 
-  function filterCat(cat, el) {
-    currentCat = cat;
-    document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('active'));
-    el.classList.add('active');
-    doSearch();
-  }
+function filterCat(cat, el) {
+  currentCat = cat;
+  document.querySelectorAll('.cat-pill, .main-nav a').forEach(e => e.classList.remove('active'));
+  if (el) el.classList.add('active');
+  doSearch();
+}
 
-  function doSearch() {
-    currentQuery = document.getElementById('hero-search')?.value || '';
-    const results = filterStores(currentQuery, currentCat);
-    const title = document.getElementById('stores-title');
-    title.textContent = currentCat === 'all' ? 'כל החנויות' :
-      `חנויות: ${currentQuery || currentCat}`;
-    renderStores(results);
-  }
-
-  document.getElementById('hero-search')?.addEventListener('keyup', e => {
-    if (e.key === 'Enter') doSearch();
-    else if (e.target.value === '') doSearch();
+function doSearch() {
+  const q = (document.getElementById('search-input')?.value || '').trim();
+  const filtered = STORES.filter(s => {
+    const matchCat = currentCat === 'all' || s.category === currentCat;
+    const matchQ = !q || s.name.includes(q) || s.tags.some(t => t.includes(q)) || s.street.includes(q);
+    return matchCat && matchQ;
   });
+  renderStores(filtered);
+}
 
-  // update overlay end time
-  document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-      if (shabbatData) {
-        const el = document.getElementById('overlay-end-time');
-        if (el) el.textContent = 'האתר יפתח בשעה ' + formatTime(shabbatData.end);
-      }
-    }, 1500);
-    renderStores(STORES);
-  });
+document.getElementById('search-input')?.addEventListener('keyup', e => {
+  if (e.key === 'Enter' || !e.target.value) doSearch();
+});
+
+// ===== SHABBAT =====
+let shabbatStart = null, shabbatEnd = null;
+
+async function loadShabbat() {
+  try {
+    const r = await fetch('https://www.hebcal.com/shabbat?cfg=json&geonameid=294801&M=on');
+    const d = await r.json();
+    const c = d.items.find(i => i.category === 'candles');
+    const h = d.items.find(i => i.category === 'havdalah');
+    if (c && h) { shabbatStart = new Date(c.date); shabbatEnd = new Date(h.date); }
+  } catch {
+    // fallback: next Friday 18:30 – Saturday 20:00
+    const now = new Date(), day = now.getDay();
+    const fri = new Date(now); fri.setDate(now.getDate() + ((5 - day + 7) % 7)); fri.setHours(18,30,0,0);
+    const sat = new Date(fri); sat.setDate(fri.getDate() + 1); sat.setHours(20,0,0,0);
+    shabbatStart = fri; shabbatEnd = sat;
+  }
+  applyShabbat();
+}
+
+function isShabbat() {
+  if (!shabbatStart) return false;
+  const n = new Date(); return n >= shabbatStart && n <= shabbatEnd;
+}
+
+function fmt(d) {
+  return d?.toLocaleTimeString('he-IL', { hour:'2-digit', minute:'2-digit' }) || '';
+}
+
+function applyShabbat() {
+  const closed = isShabbat();
+  const dot = document.getElementById('shabbat-dot');
+  const msg = document.getElementById('shabbat-msg');
+  const time = document.getElementById('shabbat-time');
+  const overlay = document.getElementById('shabbat-overlay');
+  const label = document.getElementById('shabbat-end-label');
+
+  if (closed) {
+    dot.className = 'shabbat-dot closed-dot';
+    msg.textContent = '⛔ האתר סגור לרכישות — שבת שלום';
+    time.textContent = shabbatEnd ? ' · יפתח בשעה ' + fmt(shabbatEnd) : '';
+    overlay.classList.add('show');
+    if (label) label.textContent = 'האתר יפתח במוצאי שבת בשעה ' + fmt(shabbatEnd);
+    document.querySelectorAll('.store-cta').forEach(b => { b.disabled = true; b.textContent = 'סגור בשבת'; });
+  } else {
+    dot.className = 'shabbat-dot';
+    const hoursLeft = shabbatStart ? (shabbatStart - new Date()) / 3.6e6 : 99;
+    if (hoursLeft > 0 && hoursLeft < 2) {
+      msg.textContent = `⚠️ כניסת שבת בעוד ${Math.ceil(hoursLeft * 60)} דקות`;
+      time.textContent = '· בשעה ' + fmt(shabbatStart);
+    } else {
+      msg.textContent = '✓ האתר פעיל';
+      time.textContent = shabbatStart ? '· כניסת שבת: ' + fmt(shabbatStart) : '';
+    }
+    overlay.classList.remove('show');
+  }
+}
+
+// ===== TOAST =====
+function showToast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2800);
+}
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', () => {
+  renderStores(STORES);
+  updateCartBadge();
+  loadShabbat();
+  setInterval(applyShabbat, 60000);
+});
 </script>
 </body>
 </html>
