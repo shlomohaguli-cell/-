@@ -3,106 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>מלכות הכסף | קניון בני ברק הדיגיטלי</title>
-    <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&family=Assistant:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>קניון בני ברק הדיגיטלי | חוויית קנייה של פרימיום</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&family=Assistant:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-cream: #FDFBF7;
-            --navy: #1A2A44;
-            --gold: #C5A059;
+            --primary-navy: #1A2A44;
+            --gold-matte: #C5A059;
+            --gold-light: #E6D09E;
+            --white: #ffffff;
             --serif: 'Frank Ruhl Libre', serif;
             --sans: 'Assistant', sans-serif;
         }
 
-        body { font-family: var(--sans); background: var(--bg-cream); margin: 0; color: var(--navy); }
+        body { font-family: var(--sans); background-color: var(--bg-cream); color: var(--primary-navy); margin: 0; padding: 0; scroll-behavior: smooth; }
 
-        /* בר עליון לחזרה לקניון */
-        .back-nav { background: var(--navy); padding: 10px; text-align: right; }
-        .back-nav a { color: var(--gold); text-decoration: none; font-weight: bold; padding-right: 20px; }
+        /* הדר */
+        header { background-color: var(--white); padding: 30px 20px; text-align: center; border-bottom: 1px solid var(--gold-light); }
+        .logo-area h1 { font-family: var(--serif); font-size: 4rem; margin: 0; }
+        .logo-area p { letter-spacing: 6px; font-size: 0.8rem; margin: 10px 0; color: var(--gold-matte); font-weight: 700; }
 
-        /* הדר של החנות */
-        .shop-header {
-            background: white;
-            padding: 60px 20px;
+        /* ניווט */
+        nav { background-color: var(--primary-navy); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        nav ul { list-style: none; display: flex; justify-content: center; gap: 30px; margin: 0; padding: 15px; }
+        nav a { color: var(--gold-light); text-decoration: none; font-family: var(--serif); font-size: 1.1rem; }
+
+        /* באנר ראשי משופר - ללא דגים! */
+        .hero {
+            height: 500px;
+            /* תמונה של שעון ותכשיטי יוקרה */
+            background: linear-gradient(rgba(26, 42, 68, 0.4), rgba(26, 42, 68, 0.4)), url('https://images.unsplash.com/photo-1547996111-f7bb3d058b6d?q=80&w=1974&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: var(--white);
             text-align: center;
-            border-bottom: 2px solid var(--gold);
-            margin-bottom: 40px;
         }
 
-        .shop-logo { width: 120px; height: 120px; border-radius: 50%; border: 3px solid var(--gold); margin-bottom: 20px; }
-        .shop-header h1 { font-family: var(--serif); font-size: 3.5rem; margin: 0; }
-        .shop-header p { font-size: 1.2rem; color: #666; max-width: 600px; margin: 10px auto; }
+        .hero h2 { font-family: var(--serif); font-size: 4rem; margin: 0; text-shadow: 2px 2px 8px rgba(0,0,0,0.7); }
+        .hero p { font-size: 1.4rem; margin-top: 15px; text-shadow: 1px 1px 4px rgba(0,0,0,0.5); }
 
-        /* גריד מוצרי החנות */
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px; }
+        /* שורת יתרונות */
+        .trust-bar { display: flex; justify-content: space-around; background: var(--white); padding: 20px; border-bottom: 1px solid #eee; flex-wrap: wrap; }
+        .trust-item { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; font-weight: 600; }
 
-        .product-card { background: white; border: 1px solid #eee; transition: 0.3s; padding: 15px; text-align: center; }
-        .product-card:hover { box-shadow: 0 10px 20px rgba(0,0,0,0.05); transform: translateY(-5px); }
-        .product-img { width: 100%; height: 250px; object-fit: cover; border-radius: 4px; }
-        
-        .product-name { font-family: var(--serif); font-size: 1.4rem; margin: 15px 0 5px; }
-        .product-desc { font-size: 0.9rem; color: #777; margin-bottom: 15px; height: 40px; overflow: hidden; }
-        .product-price { font-weight: bold; font-size: 1.2rem; color: var(--gold); margin-bottom: 15px; }
+        /* גריד חנויות */
+        .section-container { max-width: 1200px; margin: 0 auto; padding: 60px 20px; }
+        .section-title { text-align: center; font-family: var(--serif); font-size: 2.8rem; margin-bottom: 40px; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
 
-        .add-to-cart {
-            background: var(--navy);
-            color: white;
-            border: none;
-            width: 100%;
-            padding: 12px;
+        .product-card { background: var(--white); border: 1px solid var(--gold-light); border-radius: 4px; overflow: hidden; transition: 0.4s; text-align: center; padding-bottom: 25px; }
+        .product-card:hover { box-shadow: 0 15px 30px rgba(197, 160, 89, 0.2); }
+        .product-img { width: 100%; height: 350px; object-fit: cover; }
+
+        .btn-gold {
+            display: inline-block;
+            background: var(--gold-matte);
+            color: var(--primary-navy);
+            padding: 12px 35px;
+            text-decoration: none;
             font-weight: bold;
-            cursor: pointer;
+            font-family: var(--serif);
+            border-radius: 2px;
+            margin-top: 15px;
             transition: 0.3s;
         }
-        .add-to-cart:hover { background: var(--gold); color: var(--navy); }
+        .btn-gold:hover { background: var(--primary-navy); color: var(--white); }
 
-        footer { background: var(--navy); color: white; text-align: center; padding: 40px; margin-top: 60px; }
+        footer { background: #111; color: #ccc; padding: 60px 20px; text-align: center; margin-top: 60px; }
     </style>
 </head>
 <body>
 
-    <div class="back-nav">
-        <a href="index.html">← חזרה לכל חנויות הקניון</a>
-    </div>
-
-    <header class="shop-header">
-        <img src="https://images.unsplash.com/photo-1513519245088-0e12902e35ca?q=80&w=200" alt="Logo" class="shop-logo">
-        <h1>מלכות הכסף</h1>
-        <p>יודאיקה וכלי כסף בעיצוב אקסקלוסיבי. דורות של איכות ברחוב חזון איש.</p>
+    <header>
+        <div class="logo-area">
+            <h1>קניון בני ברק</h1>
+            <p>BNEI BRAK DIGITAL MALL | PREMIUM</p>
+        </div>
     </header>
 
-    <div class="container">
+    <nav>
+        <ul>
+            <li><a href="index.html">דף הבית</a></li>
+            <li><a href="#shops">החנויות שלנו</a></li>
+            <li><a href="#vendors">להצטרפות כחנות</a></li>
+        </ul>
+    </nav>
+
+    <div class="trust-bar">
+        <div class="trust-item">🚚 שליח עד הבית</div>
+        <div class="trust-item">💳 תשלום מאובטח</div>
+        <div class="trust-item">📜 עמידה בכללי הצניעות</div>
+        <div class="trust-item">🕯️ שומר שבת כהלכתה</div>
+    </div>
+
+    <section class="hero">
+        <h2>הלב של בני ברק, אצלך ביד</h2>
+        <p>חוויית הקנייה היוקרתית של רחוב רבי עקיבא</p>
+    </section>
+
+    <div class="section-container" id="shops">
+        <h2 class="section-title">החנויות הנבחרות</h2>
         <div class="product-grid">
+            
             <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1605335031663-356a704257bc?q=80&w=500" class="product-img">
-                <div class="product-name">חנוכיית כסף "מורשת"</div>
-                <div class="product-desc">כסף טהור 925, עבודת יד אומנותית.</div>
-                <div class="product-price">₪4,800</div>
-                <button class="add-to-cart">הוספה לסל המאוחד</button>
+                <img src="https://images.unsplash.com/photo-1573108595999-42f10f859fbe?q=80&w=1000" class="product-img">
+                <h3>מלכות הכסף</h3>
+                <p>יודאיקה וכלי כסף יוקרתיים</p>
+                <a href="shop.html" class="btn-gold">כניסה לחנות</a>
             </div>
 
             <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1573108595999-42f10f859fbe?q=80&w=500" class="product-img">
-                <div class="product-name">גביע קידוש מוזהב</div>
-                <div class="product-desc">עיטורי גפן עדינים, פנים מצופה זהב.</div>
-                <div class="product-price">₪850</div>
-                <button class="add-to-cart">הוספה לסל המאוחד</button>
+                <img src="https://images.unsplash.com/photo-1594932224491-ef24451730b4?q=80&w=1000" class="product-img">
+                <h3>בגדי שבת - פרימיום</h3>
+                <p>חליפות ואופנת גברים</p>
+                <a href="shop.html" class="btn-gold">כניסה לחנות</a>
             </div>
 
             <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1621360841013-c7683c659ec6?q=80&w=500" class="product-img">
-                <div class="product-name">מגש לחלות מכסף</div>
-                <div class="product-desc">חיתוך לייזר מרהיב, זכוכית מחוסמת.</div>
-                <div class="product-price">₪1,200</div>
-                <button class="add-to-cart">הוספה לסל המאוחד</button>
+                <img src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?q=80&w=1000" class="product-img">
+                <h3>הבית והמתנה</h3>
+                <p>טקסטיל ונדוניה ברמה הכי גבוהה</p>
+                <a href="shop.html" class="btn-gold">כניסה לחנות</a>
             </div>
+
         </div>
     </div>
 
     <footer>
-        <p>רכישה מאובטחת דרך קניון בני ברק הדיגיטלי</p>
-        <p>משלוח מבוטח עד דלת הבית בבני ברק תוך 24 שעות</p>
+        <p>האתר סגור בשבתות ובמועדי ישראל</p>
+        <p>© 2026 קניון בני ברק הדיגיטלי</p>
     </footer>
 
 </body>
