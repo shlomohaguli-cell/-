@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>קניון בני ברק הדיגיטלי - יוקרה בלב העיר</title>
+    <title>קניון בני ברק הדיגיטלי | חוויית קנייה של פרימיום</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&family=Assistant:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&family=Assistant:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-cream: #F9F7F2;
+            --bg-cream: #FDFBF7;
             --primary-navy: #1A2A44;
             --gold-matte: #C5A059;
             --gold-light: #E6D09E;
             --white: #ffffff;
+            --soft-gray: #f4f4f4;
             --serif: 'Frank Ruhl Libre', serif;
             --sans: 'Assistant', sans-serif;
         }
@@ -24,62 +25,94 @@
             color: var(--primary-navy);
             margin: 0;
             padding: 0;
-            overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
-        /* הדר יוקרתי */
+        /* הדר עליון - הודעה רצה */
+        .top-bar {
+            background: var(--gold-matte);
+            color: var(--primary-navy);
+            text-align: center;
+            padding: 8px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        /* לוגו מרכזי */
         header {
             background-color: var(--white);
-            padding: 40px 20px;
+            padding: 30px 20px;
             text-align: center;
-            border-bottom: 4px solid var(--gold-matte);
+            border-bottom: 1px solid var(--gold-light);
         }
 
         .logo-area h1 {
             font-family: var(--serif);
-            font-size: 4rem;
+            font-size: 4.5rem;
             margin: 0;
-            color: var(--primary-navy);
+            line-height: 1;
         }
 
         .logo-area p {
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            font-size: 0.9rem;
+            letter-spacing: 6px;
+            font-size: 0.8rem;
             margin: 10px 0;
             color: var(--gold-matte);
+            font-weight: 700;
         }
 
-        /* סרגל ניווט */
+        /* ניווט דביק */
         nav {
             background-color: var(--primary-navy);
             position: sticky;
             top: 0;
             z-index: 1000;
-            padding: 15px 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
         nav ul {
             list-style: none;
             display: flex;
             justify-content: center;
-            gap: 40px;
+            gap: 30px;
             margin: 0;
-            padding: 0;
+            padding: 15px;
         }
 
         nav a {
             color: var(--gold-light);
             text-decoration: none;
             font-family: var(--serif);
-            font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
+            transition: 0.3s;
         }
 
-        /* באנר ראשי מרשים */
+        nav a:hover { color: var(--white); }
+
+        /* שורת יתרונות (Trust Bar) */
+        .trust-bar {
+            display: flex;
+            justify-content: space-around;
+            background: var(--white);
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            flex-wrap: wrap;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .trust-item span { color: var(--gold-matte); font-size: 1.5rem; }
+
+        /* באנר ראשי */
         .hero {
-            height: 500px;
-            background: linear-gradient(rgba(26, 42, 68, 0.6), rgba(26, 42, 68, 0.6)), url('https://images.unsplash.com/photo-1543157145-f78c636d023d?q=80&w=2070&auto=format&fit=crop');
+            height: 450px;
+            background: linear-gradient(rgba(26, 42, 68, 0.5), rgba(26, 42, 68, 0.5)), url('https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=2070&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -90,259 +123,189 @@
             text-align: center;
         }
 
-        .hero h2 {
-            font-family: var(--serif);
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-        }
-
-        .hero p {
-            font-size: 1.5rem;
-            max-width: 600px;
-        }
-
-        /* קטגוריות מהירות */
-        .categories-bar {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            padding: 40px 20px;
-            background: var(--white);
-            flex-wrap: wrap;
-        }
-
-        .cat-item {
-            border: 1px solid var(--gold-matte);
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-family: var(--serif);
-            font-weight: bold;
-            transition: 0.3s;
-            cursor: pointer;
-        }
-
-        .cat-item:hover {
-            background: var(--gold-matte);
-            color: var(--white);
-        }
+        .hero h2 { font-family: var(--serif); font-size: 4rem; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
 
         /* גריד מוצרים */
+        .section-container { max-width: 1200px; margin: 0 auto; padding: 60px 20px; }
+        
         .section-title {
             text-align: center;
             font-family: var(--serif);
-            font-size: 2.5rem;
-            margin: 60px 0 40px;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 3px;
-            background: var(--gold-matte);
-            margin: 15px auto;
+            font-size: 2.8rem;
+            margin-bottom: 40px;
         }
 
         .product-grid {
-            max-width: 1200px;
-            margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
-            padding: 20px;
         }
 
         .product-card {
             background: var(--white);
-            border-radius: 10px;
+            border: 1px solid var(--gold-light);
+            border-radius: 4px;
             overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            border: 1px solid #eee;
-            transition: 0.3s;
+            transition: 0.4s;
             text-align: center;
-            padding-bottom: 25px;
+            padding-bottom: 20px;
         }
 
-        .product-card:hover {
-            transform: translateY(-10px);
-        }
+        .product-card:hover { box-shadow: 0 15px 30px rgba(197, 160, 89, 0.2); }
 
-        .product-img {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-        }
+        .product-img { width: 100%; height: 350px; object-fit: cover; }
 
-        .product-card h3 {
-            font-size: 1.4rem;
-            margin: 20px 0 10px;
-        }
+        .price { color: var(--gold-matte); font-weight: bold; font-size: 1.3rem; margin: 15px 0; }
 
-        .price {
-            color: var(--gold-matte);
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-        }
-
-        .buy-btn {
-            background: var(--primary-navy);
+        /* באנר הסבר לחנויות */
+        .vendor-cta {
+            background-color: var(--primary-navy);
             color: var(--white);
-            padding: 10px 25px;
-            border-radius: 5px;
-            border: none;
-            font-weight: bold;
-            cursor: pointer;
+            padding: 80px 20px;
+            text-align: center;
+            margin: 60px 0;
         }
 
-        /* באנר מבצע */
-        .promo-banner {
-            background: var(--gold-matte);
-            color: var(--primary-navy);
+        .vendor-benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 40px auto;
+        }
+
+        .benefit-box {
+            border: 1px solid var(--gold-matte);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        /* אמצעי תשלום */
+        .payment-methods {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            filter: grayscale(1);
+            opacity: 0.6;
+        }
+
+        .payment-methods img { height: 30px; }
+
+        footer {
+            background: #111;
+            color: #ccc;
             padding: 60px 20px;
             text-align: center;
-            margin: 80px 0;
         }
 
-        .promo-banner h2 {
-            font-family: var(--serif);
-            font-size: 3rem;
-            margin: 0;
-        }
-
-        /* אודות וצור קשר */
-        .info-section {
-            max-width: 900px;
-            margin: 0 auto 100px;
-            text-align: center;
-            padding: 0 20px;
-        }
-
-        .contact-form {
-            background: var(--white);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            margin-top: 50px;
-        }
-
-        input, textarea {
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-
-        .submit-btn {
+        .btn-gold {
             background: var(--gold-matte);
             color: var(--primary-navy);
-            width: 100%;
-            padding: 15px;
+            padding: 15px 40px;
             border: none;
             font-weight: bold;
             font-size: 1.1rem;
             cursor: pointer;
-        }
-
-        footer {
-            background: var(--primary-navy);
-            color: var(--white);
-            padding: 40px;
-            text-align: center;
+            font-family: var(--serif);
+            border-radius: 2px;
         }
     </style>
 </head>
 <body>
 
+    <div class="top-bar">האתר בשלבי הרצה | משלוחים מהירים לכל חלקי העיר בני ברק</div>
+
     <header>
         <div class="logo-area">
             <h1>קניון בני ברק</h1>
-            <p>BNEI BRAK DIGITAL MALL</p>
+            <p>ESTABLISHED 2026 | PREMIUM EXPERIENCE</p>
         </div>
     </header>
 
     <nav>
         <ul>
             <li><a href="#">דף הבית</a></li>
-            <li><a href="#products">כל החנויות</a></li>
-            <li><a href="#about">החזון שלנו</a></li>
-            <li><a href="#contact">הצטרפות לעסקים</a></li>
+            <li><a href="#shops">החנויות שלנו</a></li>
+            <li><a href="#shipping">משלוחים ושירות</a></li>
+            <li><a href="#vendors">להצטרפות כחנות</a></li>
         </ul>
     </nav>
 
+    <div class="trust-bar">
+        <div class="trust-item"><span>🚚</span> שליח אישי עד הבית</div>
+        <div class="trust-item"><span>💳</span> תשלום מאובטח / טלפוני</div>
+        <div class="trust-item"><span>📜</span> עמידה בכללי הצניעות</div>
+        <div class="trust-item"><span>🕯️</span> שומר שבת כהלכתה</div>
+    </div>
+
     <section class="hero">
-        <h2>יוקרה. מסורת. טכנולוגיה.</h2>
-        <p>חוויית הקנייה של רבי עקיבא מגיעה אליכם לסלון. מיטב המותגים בבני ברק במשלוח אחד מהיר.</p>
+        <h2>הלב של בני ברק, אצלך ביד</h2>
+        <p>כל האיכות של רבי עקיבא וחזון איש במקום אחד מרהיב</p>
+        <button class="btn-gold">לצפייה בקולקציה החדשה</button>
     </section>
 
-    <div class="categories-bar">
-        <div class="cat-item">חליפות שבת</div>
-        <div class="cat-item">כלי כסף</div>
-        <div class="cat-item">מתנות ליולדת</div>
-        <div class="cat-item">ספרי קודש</div>
-        <div class="cat-item">נדוניה וטקסטיל</div>
-        <div class="cat-item">צעצועי איכות</div>
-    </div>
-
-    <h2 class="section-title" id="products">הנבחרים של השבוע</h2>
-
-    <div class="product-grid">
-        <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1594932224491-ef24451730b4?q=80&w=1000&auto=format&fit=crop" class="product-img">
-            <h3>חליפת צמר איטלקית</h3>
-            <p class="price">₪1,290</p>
-            <button class="buy-btn">הוספה לסל</button>
-        </div>
-
-        <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1605335031663-356a704257bc?q=80&w=1000&auto=format&fit=crop" class="product-img">
-            <h3>פמוטי כסף טהור - דגם ירושלים</h3>
-            <p class="price">₪3,450</p>
-            <button class="buy-btn">הוספה לסל</button>
-        </div>
-
-        <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?q=80&w=1000&auto=format&fit=crop" class="product-img">
-            <h3>סט מצעי כותנה מצרית</h3>
-            <p class="price">₪580</p>
-            <button class="buy-btn">הוספה לסל</button>
-        </div>
-
-        <div class="product-card">
-            <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?q=80&w=1000&auto=format&fit=crop" class="product-img">
-            <h3>שעון יד יוקרתי מוזהב</h3>
-            <p class="price">₪890</p>
-            <button class="buy-btn">הוספה לסל</button>
+    <div class="section-container" id="shops">
+        <h2 class="section-title">מחלקות הפרימיום</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=1000&auto=format&fit=crop" class="product-img">
+                <h3>אופנת גברים ושבת</h3>
+                <p class="price">חליפות, חולצות ועניבות</p>
+                <button class="btn-gold">כניסה למחלקה</button>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=1000&auto=format&fit=crop" class="product-img">
+                <h3>טקסטיל ונדוניה</h3>
+                <p class="price">מצעים, מגבות ועיצוב הבית</p>
+                <button class="btn-gold">כניסה למחלקה</button>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1573108595999-42f10f859fbe?q=80&w=1000&auto=format&fit=crop" class="product-img">
+                <h3>יודאיקה וכלי כסף</h3>
+                <p class="price">המתנה המושלמת לשמחות</p>
+                <button class="btn-gold">כניסה למחלקה</button>
+            </div>
         </div>
     </div>
 
-    <section class="promo-banner">
-        <h2>משלוח חינם בתוך בני ברק!</h2>
-        <p>בקנייה מעל ₪499 מכל חנויות הקניון</p>
+    <section class="vendor-cta" id="vendors">
+        <h2 style="font-family: var(--serif); font-size: 3rem;">בעל עסק בבני ברק?</h2>
+        <p>הצטרף לקניון הדיגיטלי המוביל והגדל את המכירות ללא מאמץ</p>
+        <div class="vendor-benefits">
+            <div class="benefit-box">
+                <h3>0 ש"ח עלות הקמה</h3>
+                <p>אתה משלם רק עמלה קטנה על מכירה בפועל. אין מכירה - אין עלות.</p>
+            </div>
+            <div class="benefit-box">
+                <h3>לוגיסטיקה עלינו</h3>
+                <p>השליח מגיע אליך לחנות לאסוף את ההזמנה. אתה רק מכין את החבילה.</p>
+            </div>
+            <div class="benefit-box">
+                <h3>חשיפה מקסימלית</h3>
+                <p>העסק שלך יופיע מול אלפי בתי אב בבני ברק ובארץ.</p>
+            </div>
+        </div>
+        <button class="btn-gold" style="background: var(--white);">לחץ כאן לתיאום פגישה</button>
     </section>
 
-    <section class="info-section" id="about">
-        <h2 class="section-title">החזון שלנו</h2>
-        <p>קניון בני ברק הדיגיטלי הוקם במטרה להנגיש את חנויות העיר האיכותיות לכל בית יהודי, תוך שמירה קפדנית על ערכי השבת והצניעות. אנחנו מאמינים שאיכות ושירות אישי יכולים ללכת יד ביד עם חדשנות דיגיטלית.</p>
-        
-        <div class="contact-form" id="contact">
-            <h3>בעלי חנויות? הצטרפו למהפכה</h3>
-            <p>השאירו פרטים ונחזור אליכם עם הצעה להקמת חנות בקניון ב-0 ש"ח סיכון.</p>
-            <form>
-                <input type="text" placeholder="שם החנות">
-                <input type="email" placeholder="אימייל / טלפון">
-                <textarea rows="4" placeholder="ספרו לנו קצת על המוצרים שלכם"></textarea>
-                <button type="submit" class="submit-btn">שלח בקשת הצטרפות</button>
-            </form>
+    <div class="section-container" style="text-align: center;">
+        <h2 class="section-title">קנייה בטוחה ושלווה</h2>
+        <p>אנחנו מכבדים את כל אמצעי התשלום המובילים</p>
+        <div class="payment-methods">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal">
+            <p style="font-weight: bold; color: var(--primary-navy); filter: grayscale(0); opacity: 1;">| אפשרות לתשלום טלפוני</p>
         </div>
-    </section>
+    </div>
 
     <footer>
-        <p>האתר סגור בשבתות ובמועדי ישראל</p>
-        <p>© 2026 קניון בני ברק הדיגיטלי - כל הזכויות שמורות</p>
+        <div class="logo-area">
+            <h2 style="color: var(--gold-matte); font-family: var(--serif);">קניון בני ברק</h2>
+        </div>
+        <p>שעות פעילות שירות לקוחות: א'-ה' 09:00-20:00 | ו' וערבי חגים: סגור</p>
+        <p style="margin-top: 20px; font-size: 0.8rem; color: #666;">כל הזכויות שמורות לקניון בני ברק הדיגיטלי © 2026</p>
     </footer>
 
 </body>
