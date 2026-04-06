@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מלכות הכסף | קניון בני ברק הדיגיטלי</title>
+    <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&family=Assistant:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-cream: #FDFBF7;
+            --navy: #1A2A44;
+            --gold: #C5A059;
+            --serif: 'Frank Ruhl Libre', serif;
+            --sans: 'Assistant', sans-serif;
+        }
+
+        body { font-family: var(--sans); background: var(--bg-cream); margin: 0; color: var(--navy); }
+
+        /* בר עליון לחזרה לקניון */
+        .back-nav { background: var(--navy); padding: 10px; text-align: right; }
+        .back-nav a { color: var(--gold); text-decoration: none; font-weight: bold; padding-right: 20px; }
+
+        /* הדר של החנות */
+        .shop-header {
+            background: white;
+            padding: 60px 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--gold);
+            margin-bottom: 40px;
+        }
+
+        .shop-logo { width: 120px; height: 120px; border-radius: 50%; border: 3px solid var(--gold); margin-bottom: 20px; }
+        .shop-header h1 { font-family: var(--serif); font-size: 3.5rem; margin: 0; }
+        .shop-header p { font-size: 1.2rem; color: #666; max-width: 600px; margin: 10px auto; }
+
+        /* גריד מוצרי החנות */
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px; }
+
+        .product-card { background: white; border: 1px solid #eee; transition: 0.3s; padding: 15px; text-align: center; }
+        .product-card:hover { box-shadow: 0 10px 20px rgba(0,0,0,0.05); transform: translateY(-5px); }
+        .product-img { width: 100%; height: 250px; object-fit: cover; border-radius: 4px; }
+        
+        .product-name { font-family: var(--serif); font-size: 1.4rem; margin: 15px 0 5px; }
+        .product-desc { font-size: 0.9rem; color: #777; margin-bottom: 15px; height: 40px; overflow: hidden; }
+        .product-price { font-weight: bold; font-size: 1.2rem; color: var(--gold); margin-bottom: 15px; }
+
+        .add-to-cart {
+            background: var(--navy);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .add-to-cart:hover { background: var(--gold); color: var(--navy); }
+
+        footer { background: var(--navy); color: white; text-align: center; padding: 40px; margin-top: 60px; }
+    </style>
+</head>
+<body>
+
+    <div class="back-nav">
+        <a href="index.html">← חזרה לכל חנויות הקניון</a>
+    </div>
+
+    <header class="shop-header">
+        <img src="https://images.unsplash.com/photo-1513519245088-0e12902e35ca?q=80&w=200" alt="Logo" class="shop-logo">
+        <h1>מלכות הכסף</h1>
+        <p>יודאיקה וכלי כסף בעיצוב אקסקלוסיבי. דורות של איכות ברחוב חזון איש.</p>
+    </header>
+
+    <div class="container">
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1605335031663-356a704257bc?q=80&w=500" class="product-img">
+                <div class="product-name">חנוכיית כסף "מורשת"</div>
+                <div class="product-desc">כסף טהור 925, עבודת יד אומנותית.</div>
+                <div class="product-price">₪4,800</div>
+                <button class="add-to-cart">הוספה לסל המאוחד</button>
+            </div>
+
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1573108595999-42f10f859fbe?q=80&w=500" class="product-img">
+                <div class="product-name">גביע קידוש מוזהב</div>
+                <div class="product-desc">עיטורי גפן עדינים, פנים מצופה זהב.</div>
+                <div class="product-price">₪850</div>
+                <button class="add-to-cart">הוספה לסל המאוחד</button>
+            </div>
+
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1621360841013-c7683c659ec6?q=80&w=500" class="product-img">
+                <div class="product-name">מגש לחלות מכסף</div>
+                <div class="product-desc">חיתוך לייזר מרהיב, זכוכית מחוסמת.</div>
+                <div class="product-price">₪1,200</div>
+                <button class="add-to-cart">הוספה לסל המאוחד</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>רכישה מאובטחת דרך קניון בני ברק הדיגיטלי</p>
+        <p>משלוח מבוטח עד דלת הבית בבני ברק תוך 24 שעות</p>
+    </footer>
+
+</body>
+</html>
